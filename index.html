@@ -4,362 +4,676 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0">
     
-    <title>Bruno Almeida | Corretor de Imóveis</title>
-    <meta name="description" content="Encontre seu imóvel ideal. Venda, aluguel e lançamentos com segurança e agilidade.">
-    <meta name="theme-color" content="#2563EB">
+    <title>Dra. Ana Carolina Silva | Nutricionista Clínica Funcional</title>
+    <meta name="description" content="Nutrição funcional personalizada em São Paulo. Emagrecimento, saúde da mulher e performance. Agende sua consulta com a Dra. Ana Carolina.">
+    <meta name="theme-color" content="#1A3329">
     
-    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🏠</text></svg>">
+    <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🌿</text></svg>">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500;600;700&family=DM+Sans:wght@400;500;600;700&family=Playfair+Display:wght@600;700;800&display=swap" rel="stylesheet">
     
+    <script type="application/ld+json">
+    {
+      "@context": "https://schema.org",
+      "@type": "MedicalBusiness",
+      "name": "Dra. Ana Carolina Silva",
+      "image": "https://images.unsplash.com/photo-1559839734-2b71ea197ec2",
+      "telephone": "5511999999999",
+      "priceRange": "$$$",
+      "address": {
+        "@type": "PostalAddress",
+        "streetAddress": "Av. Paulista, 1000",
+        "addressLocality": "São Paulo",
+        "addressRegion": "SP",
+        "postalCode": "01310-100",
+        "addressCountry": "BR"
+      },
+      "openingHoursSpecification": {
+        "@type": "OpeningHoursSpecification",
+        "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+        "opens": "08:00",
+        "closes": "19:00"
+      }
+    }
+    </script>
+
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
-    
+
     <style>
         /* ========================================================================
-           DESIGN SYSTEM: "TRUST & FLOW"
+           CORE SYSTEM & DESIGN TOKENS
         ======================================================================== */
         :root {
-            /* Cores Acolhedoras e Profissionais */
-            --primary: #0F172A;      /* Azul Noturno (Autoridade) */
-            --primary-light: #334155;
-            --accent: #2563EB;       /* Azul Vibrante (Ação e Confiança) */
-            --accent-hover: #1D4ED8;
-            --highlight: #F59E0B;    /* Laranja Suave (Destaque) */
-            
-            --bg-body: #F8FAFC;      /* Cinza muito claro (Conforto visual) */
-            --white: #FFFFFF;
-            
-            --text-dark: #1E293B;
-            --text-gray: #64748B;
-            
-            /* UI */
-            --radius: 8px;
-            --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
-            --shadow-hover: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+            --bg-cream: #F8F6F3;
+            --bg-white: #FFFFFF;
+            --bg-light-sage: #F3F5F4;
+            --primary-sage: #2D5447;
+            --primary-deep: #1A3329;
+            --accent-terracotta: #C67858;
+            --accent-warm: #D4896B;
+            --accent-light: #E8D5C8;
+            --text-primary: #1A2824;
+            --text-secondary: #5A6662;
+            --text-muted: #8B9390;
+            --border-subtle: rgba(45, 84, 71, 0.12);
+            --success: #4A8B6F;
+            --highlight: #E8D5C8;
+            --font-serif: 'Cormorant Garamond', serif;
+            --font-display: 'Playfair Display', serif;
+            --font-sans: 'DM Sans', sans-serif;
+            --shadow-soft: 0 8px 32px rgba(26, 51, 41, 0.08);
+            --shadow-medium: 0 16px 48px rgba(26, 51, 41, 0.12);
+            --shadow-strong: 0 24px 64px rgba(26, 51, 41, 0.16);
         }
 
         *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
         
+        html { 
+            scroll-behavior: smooth; 
+            /* CORREÇÃO MOBILE: Garante que nada ultrapasse a largura da tela */
+            width: 100%;
+            overflow-x: hidden;
+        }
+        
         body {
-            background-color: var(--bg-body); color: var(--text-dark);
-            font-family: 'Inter', sans-serif; line-height: 1.6;
-            overflow-x: hidden; -webkit-font-smoothing: antialiased;
+            background-color: var(--bg-cream); color: var(--text-primary);
+            font-family: var(--font-sans); line-height: 1.7;
+            /* CORREÇÃO MOBILE */
+            width: 100%;
+            overflow-x: hidden; 
+            position: relative;
+            -webkit-font-smoothing: antialiased;
         }
 
-        html { scroll-behavior: smooth; }
+        /* ACESSIBILIDADE & LINKS */
+        a { text-decoration: none; color: inherit; transition: all 0.35s cubic-bezier(0.4, 0, 0.2, 1); }
+        :focus-visible { outline: 2px solid var(--accent-terracotta); outline-offset: 2px; }
+        img { max-width: 100%; display: block; height: auto; }
+        p { color: var(--text-secondary); margin-bottom: 1.5rem; font-size: 1.05rem; line-height: 1.75; }
 
-        /* Typography */
-        h1, h2, h3 { color: var(--primary); font-weight: 700; line-height: 1.2; }
-        h1 { font-size: clamp(32px, 5vw, 56px); letter-spacing: -1px; }
-        h2 { font-size: 32px; margin-bottom: 15px; }
-        p { color: var(--text-gray); margin-bottom: 20px; }
-
-        /* Layout */
-        .container { width: 90%; max-width: 1200px; margin: 0 auto; position: relative; z-index: 2; }
-        .section-pad { padding: 80px 0; }
-        .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 50px; align-items: center; }
-
-        /* Buttons */
-        .btn {
-            display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-            padding: 14px 32px; background-color: var(--accent); color: white;
-            font-weight: 600; border-radius: var(--radius); border: none;
-            cursor: pointer; transition: 0.3s; text-decoration: none; font-size: 16px;
+        /* DECORAÇÃO DE FUNDO */
+        .bg-decoration { position: fixed; z-index: -1; pointer-events: none; opacity: 0.15; will-change: transform; }
+        .bg-leaf-1 { top: 10%; right: -5%; width: 400px; height: 400px; background: radial-gradient(circle, var(--primary-sage) 0%, transparent 70%); border-radius: 63% 37% 54% 46% / 55% 48% 52% 45%; filter: blur(60px); animation: floatLeaf 25s infinite ease-in-out; }
+        .bg-leaf-2 { bottom: 15%; left: -8%; width: 500px; height: 500px; background: radial-gradient(circle, var(--accent-terracotta) 0%, transparent 70%); border-radius: 48% 52% 68% 32% / 65% 47% 53% 35%; filter: blur(80px); animation: floatLeaf 30s infinite ease-in-out reverse; }
+        @keyframes floatLeaf { 
+            0%, 100% { transform: translate(0, 0) rotate(0deg); } 
+            33% { transform: translate(30px, -20px) rotate(5deg); } 
+            66% { transform: translate(-20px, 30px) rotate(-5deg); } 
         }
-        .btn:hover { background-color: var(--accent-hover); transform: translateY(-2px); box-shadow: var(--shadow); }
-        
-        .btn-outline { background: white; color: var(--primary); border: 2px solid var(--primary); }
-        .btn-outline:hover { background: var(--primary); color: white; }
-        
-        /* Header */
-        header { background: var(--white); padding: 15px 0; border-bottom: 1px solid #E2E8F0; position: sticky; top: 0; z-index: 1000; box-shadow: 0 2px 10px rgba(0,0,0,0.03); }
+
+        /* TIPOGRAFIA */
+        h1, h2, h3, h4 { font-family: var(--font-display); color: var(--text-primary); line-height: 1.15; font-weight: 700; letter-spacing: -0.02em; }
+        .serif-accent { font-family: var(--font-serif); font-style: italic; color: var(--accent-terracotta); font-weight: 500; }
+        .ornament { position: relative; }
+        .ornament::before { content: ''; position: absolute; width: 60px; height: 3px; background: linear-gradient(90deg, var(--accent-terracotta), transparent); top: -20px; left: 0; }
+
+        /* LAYOUT */
+        .container { width: 90%; max-width: 1280px; margin: 0 auto; position: relative; z-index: 2; }
+        .grid-2 { display: grid; grid-template-columns: 1fr; gap: 80px; align-items: center; }
+        @media(min-width: 992px) { .grid-2 { grid-template-columns: 1fr 1fr; } }
+
+        /* BOTÕES & BADGES */
+        .btn { display: inline-flex; align-items: center; justify-content: center; gap: 12px; padding: 18px 40px; background: var(--primary-sage); color: var(--bg-white); font-weight: 600; font-family: var(--font-sans); letter-spacing: 0.3px; border-radius: 50px; border: none; cursor: pointer; transition: all 0.4s ease; box-shadow: var(--shadow-soft); font-size: 15px; position: relative; overflow: hidden; }
+        .btn:hover { transform: translateY(-3px); background: var(--primary-deep); box-shadow: var(--shadow-medium); }
+        .btn:before { content: ''; position: absolute; top: 50%; left: 50%; width: 0; height: 0; border-radius: 50%; background: rgba(255,255,255,0.15); transform: translate(-50%, -50%); transition: width 0.6s, height 0.6s; }
+        .btn:hover:before { width: 300px; height: 300px; }
+        .btn-outline { background: transparent; border: 2px solid var(--primary-sage); color: var(--primary-sage); }
+        .btn-outline:hover { background: var(--primary-sage); color: var(--bg-white); }
+        .badge { display: inline-flex; align-items: center; gap: 8px; padding: 8px 18px; background: var(--highlight); border: 1px solid var(--accent-light); border-radius: 100px; font-size: 12px; font-weight: 600; color: var(--accent-terracotta); margin-bottom: 24px; text-transform: uppercase; letter-spacing: 1.5px; }
+
+        /* TOP BAR */
+        .top-bar { background-color: var(--primary-deep); color: rgba(255,255,255,0.9); padding: 12px 0; font-size: 13px; font-family: var(--font-sans); position: relative; z-index: 1002; }
+        .top-bar-content { display: flex; justify-content: space-between; align-items: center; }
+        .top-bar-info { display: flex; gap: 24px; }
+        .top-bar-item { display: flex; align-items: center; gap: 8px; }
+        .top-bar-item i { color: var(--accent-terracotta); font-size: 16px; }
+        .top-bar-social { display: flex; gap: 12px; }
+        .top-bar-social a { color: rgba(255,255,255,0.7); font-size: 16px; }
+        .top-bar-social a:hover { color: var(--accent-terracotta); }
+        @media (max-width: 768px) { .top-bar-content { justify-content: center; } .top-bar-info { flex-direction: column; gap: 4px; text-align: center; } .top-bar-social { display: none; } }
+
+        /* HEADER (STICKY + BLUR) */
+        header { 
+            position: sticky; top: 0; left: 0; width: 100%; z-index: 1000; 
+            padding: 16px 0; background: rgba(248, 246, 243, 0.95); 
+            backdrop-filter: blur(20px) saturate(180%);
+            -webkit-backdrop-filter: blur(20px) saturate(180%);
+            border-bottom: 1px solid var(--border-subtle); 
+            transition: all 0.4s ease;
+        }
+        header.scrolled { padding: 10px 0; background: rgba(255, 255, 255, 0.98); box-shadow: var(--shadow-soft); }
         .nav-content { display: flex; justify-content: space-between; align-items: center; }
-        .logo { font-size: 22px; font-weight: 800; color: var(--primary); display: flex; align-items: center; gap: 8px; text-decoration: none; }
-        .logo span { color: var(--accent); }
-        .nav-links { display: flex; gap: 30px; align-items: center; }
-        .nav-link { color: var(--text-dark); font-weight: 500; text-decoration: none; transition: 0.3s; }
-        .nav-link:hover { color: var(--accent); }
+        .logo { font-family: var(--font-display); font-size: 24px; font-weight: 700; color: var(--primary-sage); letter-spacing: -0.5px; }
+        .nav-links { display: none; gap: 40px; align-items: center; }
+        @media(min-width: 992px) { .nav-links { display: flex; } }
+        .nav-link { font-size: 15px; font-weight: 500; color: var(--text-secondary); position: relative; }
+        .nav-link::after { content: ''; position: absolute; bottom: -5px; left: 0; width: 0; height: 2px; background: var(--accent-terracotta); transition: width 0.3s ease; }
+        .nav-link:hover { color: var(--primary-sage); }
+        .nav-link:hover::after { width: 100%; }
 
-        /* Hero Section */
-        .hero { 
-            background: linear-gradient(135deg, #EFF6FF 0%, #FFFFFF 100%); 
-            padding: 80px 0; position: relative; overflow: hidden;
+        /* MOBILE MENU */
+        .mobile-menu-toggle { display: none; flex-direction: column; gap: 6px; cursor: pointer; padding: 8px; z-index: 1005; }
+        .mobile-menu-toggle span { width: 28px; height: 3px; background: var(--primary-sage); border-radius: 3px; transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1); }
+        .mobile-menu-toggle.active span:nth-child(1) { transform: rotate(45deg) translateY(10px); }
+        .mobile-menu-toggle.active span:nth-child(2) { opacity: 0; }
+        .mobile-menu-toggle.active span:nth-child(3) { transform: rotate(-45deg) translateY(-10px); }
+        @media(max-width: 991px) {
+            .nav-links { display: flex; flex-direction: column; position: fixed; top: 0; right: -100%; width: 300px; height: 100vh; background: var(--bg-white); box-shadow: -5px 0 30px rgba(0,0,0,0.1); padding: 100px 40px 40px; gap: 32px; transition: right 0.4s cubic-bezier(0.4, 0, 0.2, 1); z-index: 1004; align-items: flex-start; }
+            .nav-links.active { right: 0; }
+            .nav-links .btn { width: 100%; justify-content: center; }
+            .mobile-menu-toggle { display: flex; }
+            .nav-content > .btn { display: none; }
         }
-        .hero-content { max-width: 600px; position: relative; z-index: 2; }
-        .badge { background: #DBEAFE; color: var(--accent); padding: 5px 15px; border-radius: 20px; font-size: 13px; font-weight: 700; text-transform: uppercase; display: inline-block; margin-bottom: 20px; }
-        .hero-image { position: relative; }
-        .hero-image img { width: 100%; border-radius: 20px; box-shadow: var(--shadow-hover); transform: rotate(2deg); border: 5px solid white; }
-        .blob { position: absolute; width: 400px; height: 400px; background: #DBEAFE; border-radius: 50%; filter: blur(50px); z-index: -1; top: 20%; right: -10%; opacity: 0.7; }
 
-        /* Search Categories */
-        .categories { margin-top: -50px; position: relative; z-index: 5; }
-        .cat-grid { 
-            display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 15px; 
-            background: white; padding: 30px; border-radius: 16px; box-shadow: var(--shadow);
-        }
-        .cat-card { 
-            text-align: center; padding: 20px; border: 1px solid #E2E8F0; border-radius: 12px; 
-            cursor: pointer; transition: 0.3s; text-decoration: none; color: var(--text-dark);
-        }
-        .cat-card:hover { border-color: var(--accent); background: #EFF6FF; transform: translateY(-3px); }
-        .cat-icon { font-size: 32px; color: var(--accent); margin-bottom: 10px; display: block; }
-        .cat-title { font-weight: 600; display: block; }
-
-        /* Properties Cards */
-        .properties-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 30px; margin-top: 40px; }
-        .prop-card { background: white; border-radius: 12px; overflow: hidden; box-shadow: var(--shadow); transition: 0.3s; border: 1px solid #E2E8F0; display: flex; flex-direction: column; }
-        .prop-card:hover { transform: translateY(-5px); box-shadow: var(--shadow-hover); }
-        .prop-img-container { position: relative; height: 220px; overflow: hidden; }
-        .prop-img { width: 100%; height: 100%; object-fit: cover; transition: 0.5s; }
-        .prop-card:hover .prop-img { transform: scale(1.05); }
-        .prop-tag { position: absolute; top: 15px; left: 15px; background: var(--accent); color: white; padding: 5px 12px; border-radius: 6px; font-size: 12px; font-weight: 600; }
-        .prop-tag.venda { background: var(--accent); }
-        .prop-tag.aluguel { background: #10B981; }
+        /* HERO SECTION */
+        .hero { padding-top: 80px; padding-bottom: 100px; position: relative; overflow: hidden; }
+        .hero-content { animation: fadeInUp 1s cubic-bezier(0.4, 0, 0.2, 1); }
+        .hero h1 { font-size: clamp(36px, 7vw, 82px); font-weight: 800; margin-bottom: 28px; line-height: 1.08; position: relative; }
+        .hero-subtitle { font-size: clamp(18px, 2vw, 22px); color: var(--text-secondary); max-width: 620px; margin-bottom: 40px; line-height: 1.7; font-weight: 400; }
+        .hero-cta-group { display: flex; gap: 16px; margin-top: 40px; flex-wrap: wrap; }
+        .hero-image-wrapper { position: relative; animation: fadeInRight 1.2s ease; }
+        .hero-image { position: relative; border-radius: 24px; overflow: hidden; box-shadow: var(--shadow-strong); aspect-ratio: 4/5; }
+        /* CORREÇÃO MOBILE: Decorações com overflow escondido ou ajustado */
+        .hero-image::before { content: ''; position: absolute; top: -30px; right: -30px; width: 250px; height: 250px; background: var(--accent-light); border-radius: 50%; z-index: -1; }
+        .hero-image::after { content: ''; position: absolute; bottom: -40px; left: -40px; width: 200px; height: 200px; border: 3px solid var(--accent-terracotta); border-radius: 50%; z-index: -1; opacity: 0.3; }
         
-        .prop-info { padding: 20px; flex: 1; display: flex; flex-direction: column; }
-        .prop-price { font-size: 24px; font-weight: 700; color: var(--primary); margin-bottom: 5px; }
-        .prop-title { font-size: 18px; font-weight: 600; margin-bottom: 10px; line-height: 1.4; }
-        .prop-features { display: flex; gap: 15px; font-size: 14px; color: var(--text-gray); margin-bottom: 20px; border-top: 1px solid #F1F5F9; border-bottom: 1px solid #F1F5F9; padding: 10px 0; }
-        .prop-features span { display: flex; align-items: center; gap: 5px; }
-        .prop-btn { margin-top: auto; width: 100%; text-align: center; padding: 12px; background: #F8FAFC; color: var(--accent); font-weight: 600; border-radius: 6px; transition: 0.3s; }
-        .prop-btn:hover { background: var(--accent); color: white; }
-
-        /* About Section */
-        .about-section { background: var(--white); }
-        .about-img img { width: 100%; border-radius: 12px; }
-        .stats-row { display: flex; gap: 40px; margin-top: 30px; }
-        .stat-item strong { display: block; font-size: 32px; color: var(--accent); font-weight: 800; }
-        .stat-item span { font-size: 14px; color: var(--text-gray); }
-
-        /* Integration Banner */
-        .integration-banner { 
-            background: linear-gradient(135deg, var(--primary) 0%, #1e293b 100%); 
-            color: white; border-radius: 20px; padding: 60px; text-align: center;
-            margin-top: 60px;
-        }
-        .integration-banner h3 { color: white; margin-bottom: 15px; }
-        .integration-banner p { color: #CBD5E1; margin-bottom: 30px; font-size: 18px; }
-
-        /* Footer */
-        footer { background: white; border-top: 1px solid #E2E8F0; padding: 60px 0 20px; }
-        .footer-grid { display: grid; grid-template-columns: 1.5fr 1fr 1fr; gap: 40px; margin-bottom: 40px; }
-        .social-links { display: flex; gap: 15px; margin-top: 20px; }
-        .social-link { width: 40px; height: 40px; background: #F1F5F9; display: flex; align-items: center; justify-content: center; border-radius: 50%; color: var(--primary); transition: 0.3s; }
-        .social-link:hover { background: var(--accent); color: white; }
-        .footer-bottom { text-align: center; padding-top: 20px; border-top: 1px solid #F1F5F9; font-size: 14px; color: var(--text-gray); }
-
-        /* Whatsapp Float */
-        .whatsapp-float { position: fixed; bottom: 25px; right: 25px; background: #25D366; width: 60px; height: 60px; border-radius: 50%; display: flex; align-items: center; justify-content: center; color: white; font-size: 30px; box-shadow: 0 4px 15px rgba(0,0,0,0.2); z-index: 1000; transition: 0.3s; animation: pulse 2s infinite; }
-        .whatsapp-float:hover { transform: scale(1.1); }
-        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); } 70% { box-shadow: 0 0 0 15px rgba(37, 211, 102, 0); } 100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); } }
-
-        /* Mobile */
-        .mobile-toggle { display: none; font-size: 28px; cursor: pointer; }
         @media(max-width: 768px) {
-            .nav-links { display: none; }
-            .mobile-toggle { display: block; }
-            .grid-2 { grid-template-columns: 1fr; gap: 40px; }
-            .hero h1 { font-size: 36px; }
-            .cat-grid { grid-template-columns: 1fr 1fr; }
-            .stats-row { justify-content: space-between; }
-            .integration-banner { padding: 40px 20px; }
+            /* Evita que as decorações empurrem a largura no mobile */
+            .hero-image::before { right: -10px; width: 150px; height: 150px; }
+            .hero-image::after { left: -10px; width: 120px; height: 120px; }
         }
+
+        .hero-image img { width: 100%; height: 100%; object-fit: cover; border-radius: 24px; }
+
+        /* STATS & SECTIONS */
+        .stats-bar { background: var(--bg-white); padding: 60px 0; border-top: 1px solid var(--border-subtle); border-bottom: 1px solid var(--border-subtle); position: relative; }
+        .stats-bar::before { content: ''; position: absolute; top: 0; left: 0; right: 0; height: 1px; background: linear-gradient(90deg, transparent, var(--accent-terracotta), transparent); }
+        .stats-container { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 50px; text-align: center; }
+        .stat-item { animation: fadeInUp 0.8s cubic-bezier(0.4, 0, 0.2, 1); animation-fill-mode: both; }
+        .stat-item:nth-child(1) { animation-delay: 0.1s; } .stat-item:nth-child(2) { animation-delay: 0.2s; } .stat-item:nth-child(3) { animation-delay: 0.3s; } .stat-item:nth-child(4) { animation-delay: 0.4s; }
+        .stat-number { font-size: clamp(48px, 5vw, 64px); font-family: var(--font-display); color: var(--primary-sage); font-weight: 700; display: block; margin-bottom: 8px; }
+        .stat-label { color: var(--text-muted); font-size: 14px; font-weight: 500; text-transform: uppercase; letter-spacing: 1px; }
+
+        .comparison-visual { background: linear-gradient(135deg, var(--bg-light-sage) 0%, var(--bg-white) 100%); padding: 100px 0; position: relative; }
+        .comparison-cards { display: grid; grid-template-columns: 1fr; gap: 40px; margin-top: 60px; }
+        @media(min-width: 768px) { .comparison-cards { grid-template-columns: 1fr 1fr; } }
+        .comp-card { background: var(--bg-white); padding: 50px 40px; border-radius: 24px; border: 2px solid var(--border-subtle); transition: 0.5s; position: relative; }
+        .comp-card.featured { border: 2px solid var(--accent-terracotta); background: linear-gradient(135deg, rgba(198, 120, 88, 0.03) 0%, var(--bg-white) 100%); transform: scale(1.02); box-shadow: var(--shadow-medium); }
+        .comp-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-strong); }
+        .comp-icon { width: 70px; height: 70px; background: var(--highlight); border-radius: 18px; display: flex; align-items: center; justify-content: center; margin-bottom: 28px; font-size: 32px; }
+        .comp-card h3 { font-size: 26px; margin-bottom: 20px; color: var(--text-primary); }
+        .comp-list { list-style: none; padding: 0; }
+        .comp-list li { display: flex; gap: 14px; margin-bottom: 18px; font-size: 16px; color: var(--text-secondary); align-items: flex-start; }
+        .comp-list i { color: var(--success); flex-shrink: 0; font-size: 20px; margin-top: 2px; }
+
+        .services { padding: 120px 0; background: var(--bg-white); }
+        .section-header { text-align: center; max-width: 750px; margin: 0 auto 80px; }
+        .section-subtitle { font-family: var(--font-serif); font-size: 18px; color: var(--accent-terracotta); font-style: italic; margin-bottom: 16px; font-weight: 500; }
+        .section-title { font-size: clamp(36px, 5vw, 56px); color: var(--text-primary); margin-bottom: 24px; line-height: 1.15; }
+        .section-description { font-size: 18px; color: var(--text-secondary); line-height: 1.8; }
+        .services-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 40px; }
+        .service-card { background: var(--bg-cream); padding: 50px 40px; border-radius: 24px; transition: 0.5s; border: 1px solid var(--border-subtle); position: relative; overflow: hidden; }
+        .service-card::before { content: ''; position: absolute; top: 0; left: 0; width: 100%; height: 5px; background: linear-gradient(90deg, var(--accent-terracotta), var(--primary-sage)); transform: scaleX(0); transform-origin: left; transition: 0.6s; }
+        .service-card:hover::before { transform: scaleX(1); }
+        .service-card:hover { transform: translateY(-12px); box-shadow: var(--shadow-strong); background: var(--bg-white); }
+        .service-icon-large { width: 80px; height: 80px; background: linear-gradient(135deg, var(--accent-light), var(--highlight)); border-radius: 20px; display: flex; align-items: center; justify-content: center; margin-bottom: 28px; font-size: 38px; color: var(--accent-terracotta); transition: 0.4s; }
+        .service-card:hover .service-icon-large { transform: scale(1.1) rotate(5deg); box-shadow: 0 8px 24px rgba(198, 120, 88, 0.25); }
+        .service-card h3 { font-size: 24px; margin-bottom: 16px; color: var(--text-primary); }
+        .service-card p { margin-bottom: 24px; color: var(--text-secondary); line-height: 1.75; }
+        .service-list { list-style: none; padding: 0; }
+        .service-list li { padding: 10px 0; color: var(--text-secondary); position: relative; padding-left: 26px; font-size: 15px; }
+        .service-list li::before { content: '✓'; position: absolute; left: 0; color: var(--accent-terracotta); font-weight: 700; font-size: 18px; }
+
+        .process-section { padding: 100px 0; background: linear-gradient(180deg, var(--bg-cream) 0%, var(--bg-white) 100%); }
+        .process-timeline { max-width: 1000px; margin: 60px auto 0; display: grid; gap: 40px; }
+        .process-step { display: grid; grid-template-columns: 100px 1fr; gap: 40px; align-items: start; position: relative; padding-bottom: 40px; }
+        .process-step:not(:last-child)::after { content: ''; position: absolute; left: 50px; top: 100px; width: 2px; height: calc(100% - 60px); background: linear-gradient(180deg, var(--accent-terracotta) 0%, var(--accent-light) 100%); opacity: 0.3; }
+        .step-number { width: 100px; height: 100px; background: linear-gradient(135deg, var(--primary-sage), var(--primary-deep)); border-radius: 20px; display: flex; align-items: center; justify-content: center; font-size: 32px; font-weight: 700; color: white; font-family: var(--font-display); box-shadow: var(--shadow-soft); position: relative; z-index: 1; }
+        .step-content h3 { font-size: 26px; margin-bottom: 12px; color: var(--text-primary); }
+        .step-content p { font-size: 16px; color: var(--text-secondary); line-height: 1.8; margin: 0; }
+        @media(max-width: 768px) {
+            .process-step { grid-template-columns: 70px 1fr; gap: 24px; }
+            .step-number { width: 70px; height: 70px; font-size: 24px; border-radius: 16px; }
+            .process-step:not(:last-child)::after { left: 35px; top: 70px; }
+            .step-content h3 { font-size: 22px; }
+        }
+
+        .about { padding: 120px 0; background: linear-gradient(180deg, var(--bg-cream) 0%, var(--bg-light-sage) 100%); }
+        .about-image-wrapper { position: relative; }
+        .about-image { position: relative; border-radius: 24px; overflow: hidden; box-shadow: var(--shadow-strong); aspect-ratio: 4/5; }
+        .about-image img { width: 100%; height: 100%; object-fit: cover; border-radius: 24px; }
+        .about-image::after { content: ''; position: absolute; bottom: -25px; left: -25px; width: 180px; height: 180px; background: var(--accent-light); border-radius: 50%; z-index: -1; }
+        .about-content h2 { font-size: clamp(36px, 5vw, 52px); margin-bottom: 28px; line-height: 1.15; }
+        .about-content p { font-size: 17px; line-height: 1.8; margin-bottom: 20px; }
+        .credentials { margin-top: 40px; padding-top: 40px; border-top: 2px solid var(--border-subtle); }
+        .credentials h4 { color: var(--primary-sage); font-size: 18px; margin-bottom: 20px; font-family: var(--font-sans); font-weight: 600; }
+        .credentials ul { list-style: none; padding: 0; }
+        .credentials li { padding: 10px 0; color: var(--text-secondary); position: relative; padding-left: 28px; font-size: 15px; }
+        .credentials li::before { content: '→'; position: absolute; left: 0; color: var(--accent-terracotta); font-weight: 700; }
+        
+        /* TRUST BADGES */
+        .trust-badges { display: flex; gap: 15px; flex-wrap: wrap; margin-top: 30px; }
+        .trust-badge-item { display: flex; align-items: center; gap: 8px; background: rgba(255,255,255,0.7); border: 1px solid var(--border-subtle); padding: 8px 16px; border-radius: 50px; font-size: 13px; font-weight: 600; color: var(--primary-sage); box-shadow: var(--shadow-soft); }
+        .trust-badge-item i { font-size: 18px; color: var(--accent-terracotta); }
+
+        .testimonials { padding: 120px 0; background: var(--bg-white); overflow: hidden; }
+        .testimonials-slider { margin-top: 60px; overflow: hidden; position: relative; }
+        .slider-track { display: flex; gap: 30px; animation: scroll 60s linear infinite; width: max-content; }
+        .slider-track:hover { animation-play-state: paused; }
+        @keyframes scroll { 0% { transform: translateX(0); } 100% { transform: translateX(-50%); } }
+        .testimonial-card { width: 420px; background: var(--bg-cream); padding: 40px; border-radius: 24px; border: 1px solid var(--border-subtle); flex-shrink: 0; position: relative; transition: all 0.4s ease; }
+        .testimonial-card:hover { transform: translateY(-8px); box-shadow: var(--shadow-medium); background: var(--bg-white); }
+        .testimonial-card::before { content: '"'; position: absolute; top: 20px; left: 30px; font-size: 80px; font-family: var(--font-serif); color: var(--accent-light); line-height: 1; }
+        .testimonial-text { color: var(--text-secondary); line-height: 1.8; margin-bottom: 28px; position: relative; z-index: 1; font-size: 16px; }
+        .testimonial-author { display: flex; align-items: center; gap: 16px; margin-top: 24px; padding-top: 24px; border-top: 1px solid var(--border-subtle); }
+        .author-avatar { width: 56px; height: 56px; border-radius: 50%; background: linear-gradient(135deg, var(--accent-light), var(--highlight)); display: flex; align-items: center; justify-content: center; font-weight: 700; color: var(--accent-terracotta); font-size: 18px; }
+        .author-info h5 { color: var(--text-primary); font-weight: 600; margin-bottom: 4px; font-size: 16px; }
+        .author-info p { color: var(--text-muted); font-size: 14px; margin: 0; }
+
+        .faq-section { padding: 100px 0; background: var(--bg-white); }
+        .faq-grid { max-width: 900px; margin: 0 auto; display: grid; gap: 20px; }
+        .faq-item { background: var(--bg-cream); border: 1px solid var(--border-subtle); border-radius: 16px; padding: 0; cursor: pointer; transition: 0.3s; }
+        .faq-item:hover { border-color: var(--accent-terracotta); box-shadow: var(--shadow-soft); }
+        .faq-item[open] { background: var(--bg-white); border-color: var(--accent-terracotta); box-shadow: var(--shadow-medium); }
+        .faq-item summary { padding: 28px 32px; font-size: 18px; font-weight: 600; color: var(--text-primary); list-style: none; display: flex; justify-content: space-between; align-items: center; cursor: pointer; }
+        .faq-item summary::-webkit-details-marker { display: none; }
+        .faq-icon { font-size: 24px; color: var(--accent-terracotta); transition: transform 0.3s ease; margin-left: 16px; }
+        .faq-item[open] .faq-icon { transform: rotate(45deg); }
+        .faq-content { padding: 0 32px 32px; animation: fadeIn 0.4s ease; }
+        .faq-content p { color: var(--text-secondary); line-height: 1.8; margin: 0; font-size: 16px; }
+
+        .cta-section { background: linear-gradient(135deg, var(--primary-deep) 0%, var(--primary-sage) 100%); padding: 100px 0; position: relative; overflow: hidden; }
+        .cta-section::before { content: ''; position: absolute; top: -40%; right: -15%; width: 600px; height: 600px; background: radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 70%); border-radius: 50%; }
+        .cta-section::after { content: ''; position: absolute; bottom: -30%; left: -10%; width: 500px; height: 500px; background: radial-gradient(circle, rgba(198,120,88,0.15) 0%, transparent 70%); border-radius: 50%; }
+        .cta-container { max-width: 900px; margin: 0 auto; text-align: center; position: relative; z-index: 1; }
+        .cta-container h2 { color: var(--bg-white); font-size: clamp(36px, 5vw, 56px); margin-bottom: 24px; line-height: 1.15; }
+        .cta-container p { color: rgba(255,255,255,0.9); font-size: 19px; margin-bottom: 40px; line-height: 1.7; }
+        .cta-form { display: flex; gap: 16px; max-width: 650px; margin: 0 auto; flex-wrap: wrap; }
+        .goal-selector { max-width: 700px; margin: 0 auto; background: rgba(255,255,255,0.98); padding: 50px 45px; border-radius: 24px; box-shadow: 0 20px 60px rgba(0,0,0,0.2); backdrop-filter: blur(10px); }
+        .goal-label { display: block; font-size: 17px; font-weight: 600; color: var(--primary-sage); margin-bottom: 18px; text-align: left; font-family: var(--font-sans); }
+        .goal-textarea { width: 100%; padding: 20px 24px; border: 2px solid var(--border-subtle); border-radius: 16px; font-size: 16px; font-family: var(--font-sans); color: var(--text-primary); resize: vertical; min-height: 120px; transition: all 0.3s ease; line-height: 1.6; background: var(--bg-cream); }
+        .goal-textarea:focus { outline: none; border-color: var(--accent-terracotta); background: var(--bg-white); box-shadow: 0 0 0 4px rgba(198, 120, 88, 0.1); }
+        .btn-whatsapp { width: 100%; margin-top: 24px; padding: 20px 40px; background: #25D366; color: white; border: none; border-radius: 50px; font-weight: 700; font-size: 17px; cursor: pointer; transition: 0.4s; letter-spacing: 0.3px; display: flex; align-items: center; justify-content: center; gap: 12px; box-shadow: 0 8px 24px rgba(37, 211, 102, 0.3); font-family: var(--font-sans); }
+        .btn-whatsapp:hover { background: #20BA5A; transform: translateY(-3px); box-shadow: 0 12px 32px rgba(37, 211, 102, 0.4); }
+        .btn-whatsapp i { font-size: 24px; }
+        .privacy-note { text-align: center; font-size: 13px; color: var(--text-muted); margin-top: 16px; display: flex; align-items: center; justify-content: center; gap: 6px; }
+
+        /* FOOTER */
+        footer { background: var(--primary-deep); color: rgba(255,255,255,0.8); padding: 80px 0 30px; position: relative; }
+        .footer-wrapper { display: grid; grid-template-columns: 1fr 1.2fr; gap: 60px; align-items: center; margin-bottom: 60px; }
+        .footer-info h3 { color: var(--bg-white); font-size: 32px; margin-bottom: 12px; }
+        .footer-info .specialty { color: var(--accent-terracotta); font-family: var(--font-serif); font-style: italic; font-size: 18px; margin-bottom: 32px; display: block; }
+        .contact-list { list-style: none; margin-bottom: 40px; }
+        .contact-list li { display: flex; align-items: flex-start; gap: 16px; margin-bottom: 20px; font-size: 16px; line-height: 1.6; }
+        .contact-list i { color: var(--accent-terracotta); font-size: 24px; flex-shrink: 0; margin-top: 2px; }
+        .contact-label { display: block; font-size: 12px; text-transform: uppercase; letter-spacing: 1px; opacity: 0.6; margin-bottom: 4px; }
+        .footer-social { display: flex; gap: 16px; }
+        .footer-social a { width: 48px; height: 48px; background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 20px; color: var(--bg-white); transition: all 0.3s ease; }
+        .footer-social a:hover { background: var(--accent-terracotta); border-color: var(--accent-terracotta); transform: translateY(-4px); }
+        .footer-map { width: 100%; height: 400px; border-radius: 24px; overflow: hidden; box-shadow: var(--shadow-strong); border: 4px solid rgba(255,255,255,0.05); background: var(--bg-light-sage); }
+        .footer-map iframe { width: 100%; height: 100%; border: 0; filter: grayscale(20%) contrast(1.1); transition: filter 0.3s ease; }
+        .footer-map:hover iframe { filter: grayscale(0%); }
+        .footer-bottom { border-top: 1px solid rgba(255,255,255,0.1); padding-top: 30px; text-align: center; font-size: 14px; color: rgba(255,255,255,0.5); display: flex; justify-content: space-between; flex-wrap: wrap; gap: 20px; }
+        .developer-link { color: rgba(255,255,255,0.6); text-decoration: none; font-weight: 500; transition: all 0.3s ease; display: inline-flex; align-items: center; gap: 6px; }
+        .developer-link:hover { color: #25D366; transform: translateY(-1px); }
+        .developer-link i { font-size: 16px; }
+
+        @media (max-width: 992px) {
+            .hero { padding-top: 120px; }
+            .section-pad { padding: 80px 0; }
+            .grid-2 { grid-template-columns: 1fr; gap: 50px; }
+            .footer-wrapper { grid-template-columns: 1fr; gap: 40px; }
+            .footer-map { height: 300px; order: -1; }
+            .footer-bottom { flex-direction: column; justify-content: center; }
+        }
+        @media (max-width: 640px) {
+            .hero h1 { font-size: 36px; }
+            .cta-form { flex-direction: column; }
+            .stat-number { font-size: 42px; }
+            .whatsapp-float { width: 68px; height: 68px; bottom: 24px; right: 24px; } /* Maior no mobile */
+        }
+
+        /* WHATSAPP FLOAT (CORREÇÃO MOBILE: ALTO Z-INDEX) */
+        .whatsapp-float { position: fixed; bottom: 30px; right: 30px; width: 64px; height: 64px; background: #25D366; border-radius: 50%; display: flex; align-items: center; justify-content: center; z-index: 9999; box-shadow: 0 8px 24px rgba(37, 211, 102, 0.4); transition: all 0.4s; animation: pulse 2.5s infinite; }
+        .whatsapp-float:hover { transform: scale(1.12); box-shadow: 0 12px 32px rgba(37, 211, 102, 0.5); }
+        @keyframes pulse { 0% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0.7); } 70% { box-shadow: 0 0 0 18px rgba(37, 211, 102, 0); } 100% { box-shadow: 0 0 0 0 rgba(37, 211, 102, 0); } }
+
+        /* EXTRAS */
+        .cookie-banner { position: fixed; bottom: 20px; left: 20px; right: 20px; max-width: 400px; background: white; padding: 20px; border-radius: 16px; box-shadow: 0 10px 30px rgba(0,0,0,0.15); z-index: 9999; display: none; border: 1px solid var(--border-subtle); }
+        .cookie-banner p { font-size: 14px; margin-bottom: 15px; color: var(--text-secondary); }
+        .cookie-banner button { width: 100%; padding: 10px; background: var(--primary-sage); color: white; border: none; border-radius: 8px; cursor: pointer; font-weight: 600; }
+        .back-to-top { position: fixed; bottom: 30px; left: 30px; width: 50px; height: 50px; background: white; color: var(--primary-sage); border: 1px solid var(--border-subtle); border-radius: 50%; cursor: pointer; z-index: 999; box-shadow: var(--shadow-medium); display: flex; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transition: all 0.3s; font-size: 20px; }
+        .back-to-top.show { opacity: 1; visibility: visible; }
+        .back-to-top:hover { background: var(--primary-sage); color: white; transform: translateY(-3px); }
+
+        /* ANIMATIONS */
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeInRight { from { opacity: 0; transform: translateX(40px); } to { opacity: 1; transform: translateX(0); } }
     </style>
 </head>
 <body>
 
+    <div class="bg-decoration bg-leaf-1"></div>
+    <div class="bg-decoration bg-leaf-2"></div>
+
+    <div class="top-bar">
+        <div class="container top-bar-content">
+            <div class="top-bar-info">
+                <div class="top-bar-item"><i class="ph-fill ph-clock"></i><span>Seg - Sex: 08h às 18h | Sáb: 08h às 12h</span></div>
+                <div class="top-bar-item"><i class="ph-fill ph-map-pin"></i><span>Av. Paulista, 1000 - São Paulo, SP</span></div>
+            </div>
+            <div class="top-bar-social">
+                <a href="#" aria-label="Instagram" rel="noopener noreferrer"><i class="ph-bold ph-instagram-logo"></i></a>
+                <a href="#" aria-label="Facebook" rel="noopener noreferrer"><i class="ph-bold ph-facebook-logo"></i></a>
+                <a href="#" aria-label="LinkedIn" rel="noopener noreferrer"><i class="ph-bold ph-linkedin-logo"></i></a>
+            </div>
+        </div>
+    </div>
+
     <header>
         <div class="container nav-content">
-            <a href="#" class="logo"><i class="ph-fill ph-house-line"></i> Bruno<span>Almeida</span></a>
+            <div class="logo">Dra. Ana Carolina</div>
             <nav class="nav-links">
-                <a href="#imoveis" class="nav-link">Imóveis</a>
-                <a href="#sobre" class="nav-link">Sobre Mim</a>
-                <a href="#contato" class="btn">Falar no WhatsApp</a>
+                <a href="#servicos" class="nav-link">Serviços</a>
+                <a href="#sobre" class="nav-link">Sobre</a>
+                <a href="#depoimentos" class="nav-link">Depoimentos</a>
+                <a href="#contato" class="nav-link">Contato</a>
+                <a href="#contato" class="btn" style="padding: 12px 28px; font-size: 14px;">Agendar Consulta</a>
             </nav>
-            <div class="mobile-toggle"><i class="ph-bold ph-list"></i></div>
+            <div class="mobile-menu-toggle" onclick="toggleMobileMenu()"><span></span><span></span><span></span></div>
         </div>
     </header>
 
     <section class="hero">
-        <div class="blob"></div>
         <div class="container grid-2">
             <div class="hero-content">
-                <span class="badge">Corretor Credenciado • CRECI 12345</span>
-                <h1>Encontre o lugar perfeito para sua nova história.</h1>
-                <p>Seja para comprar, alugar ou investir. Tenho as melhores opções da região com negociação transparente e segura.</p>
-                <div style="display: flex; gap: 15px; flex-wrap: wrap;">
-                    <a href="#busca-rapida" class="btn">Buscar Imóvel</a>
-                    <a href="#contato" class="btn btn-outline">Quero Vender</a>
+                <div class="badge"><i class="ph-fill ph-leaf" style="color: var(--accent-terracotta); font-size: 14px;"></i>Nutrição Integrativa & Bem-Estar</div>
+                <h1 class="ornament">Transforme sua <span class="serif-accent">relação</span> com a alimentação</h1>
+                <p class="hero-subtitle">Atendimento personalizado e humanizado focado em resultados duradouros através da nutrição clínica funcional. Seu corpo merece cuidado genuíno.</p>
+                <div class="hero-cta-group"><a href="#contato" class="btn">Agende sua Consulta <i class="ph-bold ph-arrow-right"></i></a><a href="#sobre" class="btn btn-outline">Conheça meu Método</a></div>
+            </div>
+            <div class="hero-image-wrapper"><div class="hero-image"><img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=700&h=900&fit=crop&q=80" alt="Dra. Ana Carolina Silva" loading="eager" width="600" height="750"></div></div>
+        </div>
+    </section>
+
+    <section class="stats-bar">
+        <div class="container">
+            <div class="stats-container">
+                <div class="stat-item"><span class="stat-number">800+</span><span class="stat-label">Pacientes Transformados</span></div>
+                <div class="stat-item"><span class="stat-number">12</span><span class="stat-label">Anos de Experiência</span></div>
+                <div class="stat-item"><span class="stat-number">95%</span><span class="stat-label">Taxa de Sucesso</span></div>
+                <div class="stat-item"><span class="stat-number">4.9★</span><span class="stat-label">Avaliação Média</span></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="comparison-visual">
+        <div class="container">
+            <div class="section-header">
+                <p class="section-subtitle">O que me diferencia</p>
+                <h2 class="section-title">Não é só sobre dieta, é sobre <span class="serif-accent">transformação</span></h2>
+            </div>
+            <div class="comparison-cards">
+                <div class="comp-card">
+                    <div class="comp-icon"><i class="ph-fill ph-first-aid" style="color: var(--text-muted);"></i></div>
+                    <h3>Abordagem Tradicional</h3>
+                    <ul class="comp-list">
+                        <li><i class="ph-bold ph-x" style="color: var(--text-muted);"></i> Dietas genéricas e restritivas</li>
+                        <li><i class="ph-bold ph-x" style="color: var(--text-muted);"></i> Foco apenas no peso da balança</li>
+                        <li><i class="ph-bold ph-x" style="color: var(--text-muted);"></i> Atendimento padronizado</li>
+                        <li><i class="ph-bold ph-x" style="color: var(--text-muted);"></i> Resultado temporário</li>
+                        <li><i class="ph-bold ph-x" style="color: var(--text-muted);"></i> Sem acompanhamento</li>
+                    </ul>
+                </div>
+                <div class="comp-card featured">
+                    <div class="badge" style="position: absolute; top: 20px; right: 20px;">Meu Método</div>
+                    <div class="comp-icon"><i class="ph-fill ph-heart" style="color: var(--accent-terracotta);"></i></div>
+                    <h3>Nutrição Funcional</h3>
+                    <ul class="comp-list">
+                        <li><i class="ph-fill ph-check-circle"></i> Plano 100% personalizado</li>
+                        <li><i class="ph-fill ph-check-circle"></i> Foco em saúde integral</li>
+                        <li><i class="ph-fill ph-check-circle"></i> Escuta ativa e acolhimento</li>
+                        <li><i class="ph-fill ph-check-circle"></i> Mudanças sustentáveis</li>
+                        <li><i class="ph-fill ph-check-circle"></i> Suporte via WhatsApp</li>
+                    </ul>
                 </div>
             </div>
-            <div class="hero-image">
-                <img src="https://images.unsplash.com/photo-1570129477492-45c003edd2be?q=80&w=1000&auto=format&fit=crop" alt="Casa dos Sonhos">
-            </div>
         </div>
     </section>
 
-    <div id="busca-rapida" class="container categories">
-        <div class="cat-grid">
-            <a href="https://www.olx.com.br/perfil/seu-perfil" target="_blank" class="cat-card">
-                <i class="ph-duotone ph-key cat-icon"></i>
-                <span class="cat-title">Aluguel</span>
-            </a>
-            <a href="https://www.olx.com.br/perfil/seu-perfil" target="_blank" class="cat-card">
-                <i class="ph-duotone ph-house cat-icon"></i>
-                <span class="cat-title">Casas à Venda</span>
-            </a>
-            <a href="https://www.olx.com.br/perfil/seu-perfil" target="_blank" class="cat-card">
-                <i class="ph-duotone ph-buildings cat-icon"></i>
-                <span class="cat-title">Apartamentos</span>
-            </a>
-            <a href="https://www.olx.com.br/perfil/seu-perfil" target="_blank" class="cat-card">
-                <i class="ph-duotone ph-star cat-icon"></i>
-                <span class="cat-title">Lançamentos</span>
-            </a>
-        </div>
-    </div>
-
-    <section id="imoveis" class="section-pad">
+    <section id="servicos" class="services">
         <div class="container">
-            <div style="text-align: center; margin-bottom: 40px;">
-                <h2 style="margin-bottom: 10px;">Destaques da Semana</h2>
-                <p>Oportunidades selecionadas a dedo para você.</p>
+            <div class="section-header">
+                <p class="section-subtitle">Soluções Personalizadas</p>
+                <h2 class="section-title">Como posso <span class="serif-accent">te ajudar</span></h2>
+                <p class="section-description">Cada jornada é única. Descubra qual caminho faz mais sentido para você e seus objetivos de saúde.</p>
             </div>
-
-            <div class="properties-grid" id="properties-container"></div>
-
-            <div class="integration-banner">
-                <i class="ph-fill ph-magnifying-glass" style="font-size: 48px; margin-bottom: 20px; color: var(--highlight);"></i>
-                <h3>Não achou o que procurava?</h3>
-                <p>Tenho mais de 200 imóveis disponíveis no meu catálogo completo.</p>
-                <a href="https://www.olx.com.br/perfil/seu-perfil" target="_blank" class="btn btn-outline" style="background: transparent; color: white; border-color: white;">
-                    Ver Catálogo Completo (OLX) <i class="ph-bold ph-arrow-up-right"></i>
-                </a>
+            <div class="services-grid">
+                <div class="service-card">
+                    <div class="service-icon-large"><i class="ph-fill ph-fork-knife"></i></div>
+                    <h3>Emagrecimento Saudável</h3>
+                    <p>Perca peso de forma sustentável, sem dietas restritivas ou efeito sanfona. Reeduque sua relação com a comida.</p>
+                    <ul class="service-list"><li>Plano alimentar 100% personalizado</li><li>Reeducação alimentar progressiva</li><li>Acompanhamento semanal detalhado</li><li>Suporte contínuo via WhatsApp</li><li>Estratégias anticompulsão</li></ul>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon-large"><i class="ph-fill ph-lightning"></i></div>
+                    <h3>Performance & Energia</h3>
+                    <p>Otimize seus resultados na atividade física e aumente sua disposição no dia a dia com nutrição estratégica.</p>
+                    <ul class="service-list"><li>Nutrição pré e pós-treino</li><li>Protocolo de suplementação personalizado</li><li>Ganho de massa muscular magra</li><li>Estratégias de hidratação</li><li>Planejamento de refeições práticas</li></ul>
+                </div>
+                <div class="service-card">
+                    <div class="service-icon-large"><i class="ph-fill ph-heart"></i></div>
+                    <h3>Saúde da Mulher</h3>
+                    <p>Cuidado especializado para todas as fases da vida feminina, do período fértil à menopausa.</p>
+                    <ul class="service-list"><li>Gestação e amamentação segura</li><li>Tratamento de SOP e endometriose</li><li>Equilíbrio hormonal natural</li><li>Sintomas da menopausa</li><li>Fertilidade e preconcepção</li></ul>
+                </div>
             </div>
         </div>
     </section>
 
-    <section id="sobre" class="section-pad about-section">
+    <section class="process-section">
+        <div class="container">
+            <div class="section-header">
+                <p class="section-subtitle">Minha Metodologia</p>
+                <h2 class="section-title">Como funciona o <span class="serif-accent">acompanhamento</span></h2>
+                <p class="section-description">Um processo estruturado e humanizado para garantir seus resultados</p>
+            </div>
+            <div class="process-timeline">
+                <div class="process-step"><div class="step-number">01</div><div class="step-content"><h3>Avaliação Completa</h3><p>Análise detalhada do seu histórico de saúde, exames, rotina alimentar e objetivos. Avaliação antropométrica e de composição corporal.</p></div></div>
+                <div class="process-step"><div class="step-number">02</div><div class="step-content"><h3>Plano Personalizado</h3><p>Desenvolvimento de estratégia nutricional única, 100% adaptada ao seu estilo de vida, preferências alimentares e necessidades específicas.</p></div></div>
+                <div class="process-step"><div class="step-number">03</div><div class="step-content"><h3>Acompanhamento Ativo</h3><p>Consultas de retorno regulares para ajustes finos, evolução de metas e suporte contínuo via WhatsApp para suas dúvidas do dia a dia.</p></div></div>
+                <div class="process-step"><div class="step-number">04</div><div class="step-content"><h3>Resultados Sustentáveis</h3><p>Conquista dos seus objetivos com mudanças de hábitos reais e duradouras. Você aprende a se alimentar bem para toda a vida.</p></div></div>
+            </div>
+        </div>
+    </section>
+
+    <section id="sobre" class="about">
         <div class="container grid-2">
-            <div class="about-img">
-                <img src="https://images.unsplash.com/photo-1557804506-669a67965ba0?q=80&w=800&auto=format&fit=crop" alt="Bruno Almeida Corretor">
-            </div>
-            <div>
-                <span style="color: var(--accent); font-weight: 700; text-transform: uppercase; letter-spacing: 1px;">Sobre Mim</span>
-                <h2>Bruno Almeida</h2>
-                <p>Não sou apenas um vendedor de imóveis, sou um facilitador de sonhos. Com 10 anos de mercado, meu objetivo é tornar o processo de compra ou aluguel leve, seguro e sem burocracia desnecessária.</p>
-                <p>Especialista na Zona Sul e Centro, conheço cada rua e cada oportunidade de valorização. Vamos tomar um café e entender o que você precisa?</p>
-                
-                <div class="stats-row">
-                    <div class="stat-item"><strong>500+</strong><span>Famílias Atendidas</span></div>
-                    <div class="stat-item"><strong>10</strong><span>Anos de Mercado</span></div>
-                    <div class="stat-item"><strong>100%</strong><span>Segurança Jurídica</span></div>
+            <div class="about-image-wrapper"><div class="about-image"><img src="https://images.unsplash.com/photo-1576091160399-112ba8d25d1d?w=600&h=750&fit=crop&q=80" alt="Consultório" loading="lazy"></div></div>
+            <div class="about-content">
+                <p class="section-subtitle">Conheça minha história</p>
+                <h2>Olá, eu sou a <span class="serif-accent">Dra. Ana Carolina</span></h2>
+                <p>Com mais de 12 anos de experiência em nutrição clínica funcional, minha missão vai além de prescrever dietas. Acredito que cada paciente é um universo único que merece ser compreendido, acolhido e guiado com empatia.</p>
+                <p>Meu método integra o que há de mais avançado em ciência nutricional com uma abordagem profundamente humanizada. Aqui, você não é um número — você é uma pessoa com sonhos, desafios e potencial infinito para transformação.</p>
+                <div class="credentials">
+                    <h4>Formação & Especializações:</h4>
+                    <ul><li>Nutricionista pela USP (CRN: 12345)</li><li>Pós-graduação em Nutrição Clínica Funcional</li><li>Especialização em Comportamento Alimentar</li><li>Certificação Internacional em Nutrição Esportiva</li><li>Membro da Associação Brasileira de Nutrição</li><li>Formação em Mindful Eating e Nutrição Comportamental</li></ul>
+                </div>
+                <div class="trust-badges">
+                    <div class="trust-badge-item"><i class="ph-fill ph-certificate"></i> CRN: 12345</div>
+                    <div class="trust-badge-item"><i class="ph-fill ph-graduation-cap"></i> USP</div>
+                    <div class="trust-badge-item"><i class="ph-fill ph-star"></i> 12+ Anos</div>
                 </div>
             </div>
         </div>
     </section>
 
-    <footer id="contato">
+    <section id="depoimentos" class="testimonials">
         <div class="container">
-            <div class="footer-grid">
-                <div>
-                    <a href="#" class="logo" style="margin-bottom: 20px;">Bruno<span>Almeida</span></a>
-                    <p style="font-size: 14px;">Seu parceiro de confiança no mercado imobiliário. CRECI 12345-F.</p>
-                    <div class="social-links">
-                        <a href="#" class="social-link"><i class="ph-fill ph-instagram-logo"></i></a>
-                        <a href="#" class="social-link"><i class="ph-fill ph-facebook-logo"></i></a>
-                        <a href="#" class="social-link"><i class="ph-fill ph-linkedin-logo"></i></a>
+            <div class="section-header">
+                <p class="section-subtitle">Histórias reais</p>
+                <h2 class="section-title">Transformações que <span class="serif-accent">inspiram</span></h2>
+                <p class="section-description">Conheça as histórias de pessoas que decidiram priorizar sua saúde e conquistaram resultados extraordinários.</p>
+            </div>
+        </div>
+        <div class="testimonials-slider">
+            <div class="slider-track">
+                <div class="testimonial-card"><p class="testimonial-text">Perdi 18kg em 6 meses sem passar fome ou abrir mão das minhas ocasiões sociais. A Dra. Ana mudou completamente minha relação com a comida. Hoje me sinto mais disposta, confiante e verdadeiramente saudável.</p><div class="testimonial-author"><div class="author-avatar">MR</div><div class="author-info"><h5>Mariana Rodrigues</h5><p>Empresária, 34 anos</p></div></div></div>
+                <div class="testimonial-card"><p class="testimonial-text">Como atleta amador, eu precisava de alguém que realmente entendesse minhas necessidades. Os resultados foram incríveis: ganhei 6kg de massa magra e melhorei drasticamente minha performance nas corridas!</p><div class="testimonial-author"><div class="author-avatar">PS</div><div class="author-info"><h5>Pedro Santos</h5><p>Personal Trainer, 28 anos</p></div></div></div>
+                <div class="testimonial-card"><p class="testimonial-text">Depois de anos tentando engravidar sem sucesso, o acompanhamento nutricional foi fundamental na minha jornada. Hoje tenho meu bebê saudável nos braços. Gratidão eterna à Dra. Ana!</p><div class="testimonial-author"><div class="author-avatar">JL</div><div class="author-info"><h5>Juliana Lima</h5><p>Advogada, 36 anos</p></div></div></div>
+                <div class="testimonial-card"><p class="testimonial-text">Sofria com sintomas de SOP há anos. Com o protocolo personalizado da Dra. Ana, consegui regular meu ciclo, melhorar minha pele e finalmente me sentir bem no meu próprio corpo. Vida nova!</p><div class="testimonial-author"><div class="author-avatar">CF</div><div class="author-info"><h5>Carolina Freitas</h5><p>Designer, 29 anos</p></div></div></div>
+                <div class="testimonial-card"><p class="testimonial-text">Perdi 18kg em 6 meses sem passar fome ou abrir mão das minhas ocasiões sociais. A Dra. Ana mudou completamente minha relação com a comida. Hoje me sinto mais disposta, confiante e verdadeiramente saudável.</p><div class="testimonial-author"><div class="author-avatar">MR</div><div class="author-info"><h5>Mariana Rodrigues</h5><p>Empresária, 34 anos</p></div></div></div>
+                <div class="testimonial-card"><p class="testimonial-text">Como atleta amador, eu precisava de alguém que realmente entendesse minhas necessidades. Os resultados foram incríveis: ganhei 6kg de massa magra e melhorei drasticamente minha performance nas corridas!</p><div class="testimonial-author"><div class="author-avatar">PS</div><div class="author-info"><h5>Pedro Santos</h5><p>Personal Trainer, 28 anos</p></div></div></div>
+            </div>
+        </div>
+    </section>
+
+    <section class="faq-section">
+        <div class="container">
+            <div class="section-header">
+                <p class="section-subtitle">Dúvidas Frequentes</p>
+                <h2 class="section-title">Tudo o que você precisa <span class="serif-accent">saber</span></h2>
+            </div>
+            <div class="faq-grid">
+                <details class="faq-item"><summary>Como funciona a primeira consulta?<i class="ph-bold ph-plus faq-icon"></i></summary><div class="faq-content"><p>Na primeira consulta, fazemos uma avaliação completa do seu histórico de saúde, exames recentes, rotina alimentar e objetivos. Realizamos também avaliação antropométrica (peso, medidas, bioimpedância) e já iniciamos o planejamento do seu tratamento personalizado. A consulta dura aproximadamente 60 minutos e você já sai com orientações iniciais.</p></div></details>
+                <details class="faq-item"><summary>Atende presencial ou online?<i class="ph-bold ph-plus faq-icon"></i></summary><div class="faq-content"><p>Atendo nas duas modalidades! O atendimento online tem a mesma qualidade do presencial e oferece mais flexibilidade para quem tem rotina corrida. Você escolhe o formato que funciona melhor para você. As consultas online são realizadas por videochamada com total privacidade e segurança.</p></div></details>
+                <details class="faq-item"><summary>Quanto tempo até ver os primeiros resultados?<i class="ph-bold ph-plus faq-icon"></i></summary><div class="faq-content"><p>Os primeiros resultados aparecem já nas primeiras 2 a 3 semanas! Você vai notar mais disposição, melhor qualidade do sono e menos inchaço. A perda de peso sustentável acontece de forma progressiva, geralmente de 2 a 4kg por mês, dependendo do seu caso. O mais importante é que os resultados sejam duradouros.</p></div></details>
+                <details class="faq-item"><summary>Preciso seguir uma dieta muito restritiva?<i class="ph-bold ph-plus faq-icon"></i></summary><div class="faq-content"><p>Não! Meu método não trabalha com dietas restritivas ou proibições. Acredito em reeducação alimentar, onde você aprende a fazer escolhas conscientes sem abrir mão do prazer de comer. O plano é totalmente adaptado ao seu estilo de vida, preferências e rotina.</p></div></details>
+                <details class="faq-item"><summary>Qual a frequência das consultas de retorno?<i class="ph-bold ph-plus faq-icon"></i></summary><div class="faq-content"><p>Geralmente recomendo retornos quinzenais no primeiro mês (para ajustes finos) e depois mensais para acompanhamento. Mas cada caso é único e a frequência pode ser adaptada conforme sua evolução e necessidade. Entre as consultas, você tem meu suporte via WhatsApp para dúvidas pontuais.</p></div></details>
+                <details class="faq-item"><summary>Trabalha com indicação de suplementos?<i class="ph-bold ph-plus faq-icon"></i></summary><div class="faq-content"><p>Sim, quando necessário. A suplementação é avaliada caso a caso, baseada em exames laboratoriais e necessidades individuais. Priorizo sempre a alimentação como base, mas quando há deficiências nutricionais ou objetivos específicos (como performance esportiva), a suplementação pode ser uma aliada importante.</p></div></details>
+                
+                <details class="faq-item"><summary>Você entrega o cardápio na hora?<i class="ph-bold ph-plus faq-icon"></i></summary><div class="faq-content"><p>Para garantir um planejamento 100% personalizado e calculado para suas necessidades específicas, não entrego o cardápio na hora. Eu dedico um tempo após a consulta para estudar seu caso e elaborar a melhor estratégia. Você receberá seu plano alimentar completo em até 3 dias úteis via aplicativo.</p></div></details>
+                <details class="faq-item"><summary>Quais são as formas de pagamento?<i class="ph-bold ph-plus faq-icon"></i></summary><div class="faq-content"><p>Aceitamos pagamentos via PIX, transferência bancária e cartão de crédito. Para pacotes de acompanhamento trimestral ou semestral, oferecemos condições especiais de parcelamento no cartão.</p></div></details>
+                <details class="faq-item"><summary>O atendimento serve para crianças ou idosos?<i class="ph-bold ph-plus faq-icon"></i></summary><div class="faq-content"><p>Sim! O acompanhamento nutricional é fundamental em todas as fases da vida. Tenho experiência no atendimento pediátrico (focando em seletividade alimentar e obesidade infantil) e também na geriatria, visando a manutenção da massa muscular e vitalidade na melhor idade.</p></div></details>
+            </div>
+        </div>
+    </section>
+
+    <section id="contato" class="cta-section">
+        <div class="cta-container">
+            <h2>Pronto para transformar sua saúde?</h2>
+            <p>Conte-me qual seu principal objetivo ou desafio atual. Vou te ajudar a traçar o melhor caminho para conquistar seus resultados.</p>
+            <div class="goal-selector">
+                <label for="userGoal" class="goal-label">Qual seu maior objetivo ou desafio hoje?</label>
+                <textarea id="userGoal" class="goal-textarea" placeholder="Ex: Preciso emagrecer 15kg sem passar fome, ou quero ganhar massa muscular, ou sofro com sintomas de SOP..." rows="4"></textarea>
+                <button type="button" class="btn-whatsapp" onclick="sendToWhatsApp()"><i class="ph-bold ph-whatsapp-logo"></i> Agendar Consulta via WhatsApp</button>
+                <p class="privacy-note"><i class="ph-fill ph-lock" style="font-size: 14px;"></i> Seus dados estão seguros e não serão compartilhados</p>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <div class="container">
+            <div class="footer-wrapper">
+                <div class="footer-info">
+                    <h3>Dra. Ana Carolina Silva</h3>
+                    <span class="specialty">Nutrição Clínica & Funcional</span>
+                    <ul class="contact-list">
+                        <li><i class="ph-fill ph-map-pin"></i><div><span class="contact-label">Endereço</span>Av. Paulista, 1000 - Bela Vista<br>Edifício Medical Center, Sala 42<br>São Paulo - SP</div></li>
+                        <li><i class="ph-fill ph-whatsapp-logo"></i><div><span class="contact-label">Contato</span>(11) 99999-9999<br><a href="mailto:contato@draana.com.br">contato@draana.com.br</a></div></li>
+                        <li><i class="ph-fill ph-clock"></i><div><span class="contact-label">Horário de Atendimento</span>Segunda a Sexta: 08h às 19h<br>Sábado: 08h às 12h</div></li>
+                    </ul>
+                    <div class="footer-social">
+                        <a href="#" aria-label="Instagram" rel="noopener noreferrer"><i class="ph-bold ph-instagram-logo"></i></a>
+                        <a href="#" aria-label="Facebook" rel="noopener noreferrer"><i class="ph-bold ph-facebook-logo"></i></a>
+                        <a href="#" aria-label="LinkedIn" rel="noopener noreferrer"><i class="ph-bold ph-linkedin-logo"></i></a>
                     </div>
                 </div>
-                <div>
-                    <h4 style="margin-bottom: 20px; color: var(--primary);">Contato Rápido</h4>
-                    <ul style="list-style: none; padding: 0; color: var(--text-gray);">
-                        <li style="margin-bottom: 10px; display: flex; gap: 10px;"><i class="ph-fill ph-whatsapp-logo"></i> (11) 99999-9999</li>
-                        <li style="margin-bottom: 10px; display: flex; gap: 10px;"><i class="ph-fill ph-envelope"></i> contato@bruno.com.br</li>
-                        <li style="margin-bottom: 10px; display: flex; gap: 10px;"><i class="ph-fill ph-map-pin"></i> Centro Empresarial, Sala 42</li>
-                    </ul>
-                </div>
-                <div>
-                    <h4 style="margin-bottom: 20px; color: var(--primary);">Links Úteis</h4>
-                    <ul style="list-style: none; padding: 0;">
-                        <li style="margin-bottom: 10px;"><a href="#" style="color: var(--text-gray); text-decoration: none;">Financiamento</a></li>
-                        <li style="margin-bottom: 10px;"><a href="#" style="color: var(--text-gray); text-decoration: none;">Simulador Caixa</a></li>
-                    </ul>
+                <div class="footer-map">
+                    <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3657.1975870295166!2d-46.65437848502224!3d-23.561349584682857!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x94ce59c8da0aa315%3A0xd59f9431f2c9776a!2sAv.%20Paulista%2C%201578%20-%20Bela%20Vista%2C%20S%C3%A3o%20Paulo%20-%20SP%2C%2001310-200!5e0!3m2!1spt-BR!2sbr!4v1689254391234!5m2!1spt-BR!2sbr" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade" title="Localização do Consultório"></iframe>
                 </div>
             </div>
             <div class="footer-bottom">
-                &copy; 2026 Bruno Almeida Corretor. Desenvolvido por Dr. Victor.
+                <p>© 2026 Dra. Ana Carolina Silva - Todos os direitos reservados | CRN-3: 12345</p>
+                <p>Desenvolvido por <a href="https://wa.me/5581983141124?text=Ol%C3%A1%2C%20Dr.%20Victor!%20Vi%20o%20site%20que%20voc%C3%AA%20desenvolveu%20e%20quero%20uma%20Landing%20Page%20exclusiva%20para%20elevar%20minha%20autoridade%20digital.%20Podemos%20conversar%3F" target="_blank" class="developer-link" title="Fale com o Dr. Victor" rel="noopener noreferrer"><strong>Dr. Victor</strong> - Elevando sua autoridade digital <i class="ph-bold ph-whatsapp-logo"></i></a></p>
             </div>
         </div>
     </footer>
 
-    <a href="https://wa.me/5511999999999" class="whatsapp-float">
-        <i class="ph-fill ph-whatsapp-logo"></i>
+    <a href="https://wa.me/5511999999999?text=Olá! Vim do site e gostaria de agendar uma consulta." class="whatsapp-float" target="_blank" aria-label="Falar no WhatsApp" rel="noopener noreferrer">
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+            <path d="M17.472 14.382C17.175 14.233 15.714 13.516 15.442 13.416C15.169 13.317 14.971 13.268 14.772 13.566C14.575 13.863 14.005 14.532 13.832 14.73C13.659 14.929 13.486 14.953 13.188 14.805C12.892 14.656 11.934 14.343 10.799 13.331C9.916 12.543 9.319 11.57 9.146 11.272C8.973 10.975 9.128 10.814 9.277 10.666C9.411 10.533 9.575 10.319 9.724 10.146C9.873 9.972 9.922 9.848 10.021 9.65C10.121 9.451 10.071 9.278 9.997 9.129C9.922 8.98 9.328 7.517 9.081 6.922C8.839 6.343 8.594 6.422 8.412 6.412C8.239 6.404 8.041 6.402 7.842 6.402C7.644 6.402 7.322 6.476 7.05 6.774C6.778 7.071 6.01 7.79 6.01 9.253C6.01 10.715 7.075 12.128 7.223 12.327C7.372 12.525 9.319 15.527 12.3 16.814C13.011 17.12 13.565 17.303 13.997 17.439C14.713 17.666 15.361 17.634 15.872 17.557C16.442 17.472 17.63 16.838 17.877 16.144C18.125 15.45 18.125 14.855 18.05 14.73C17.977 14.619 17.778 14.545 17.481 14.396L17.472 14.382ZM12.055 21.956H12.051C10.291 21.956 8.563 21.485 7.028 20.59L6.698 20.396L3.001 21.357L3.986 17.803L3.776 17.469C2.819 15.947 2.314 14.189 2.315 12.395C2.318 7.027 6.687 2.66 12.062 2.66C14.665 2.661 17.108 3.674 18.948 5.513C20.788 7.352 21.802 9.795 21.8 12.399C21.8 17.768 17.431 22.134 12.063 22.134L12.055 21.956Z"/>
+        </svg>
     </a>
 
-    <script>
-        // CONFIGURAÇÃO DOS IMÓVEIS DESTAQUE (Edite aqui)
-        const properties = [
-            {
-                tag: "Venda",
-                type: "venda", // classe css: venda ou aluguel
-                image: "https://images.unsplash.com/photo-1580587771525-78b9dba3b91d?q=80&w=800&auto=format&fit=crop",
-                title: "Casa em Condomínio Fechado",
-                price: "R$ 450.000",
-                beds: "3 Quartos",
-                area: "120m²",
-                baths: "2 Banheiros",
-                link: "#"
-            },
-            {
-                tag: "Aluguel",
-                type: "aluguel",
-                image: "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?q=80&w=800&auto=format&fit=crop",
-                title: "Apartamento Centro - Mobiliado",
-                price: "R$ 2.200/mês",
-                beds: "2 Quartos",
-                area: "65m²",
-                baths: "1 Banheiro",
-                link: "#"
-            },
-            {
-                tag: "Oportunidade",
-                type: "venda",
-                image: "https://images.unsplash.com/photo-1564013799919-ab600027ffc6?q=80&w=800&auto=format&fit=crop",
-                title: "Cobertura com Vista Mar",
-                price: "R$ 890.000",
-                beds: "4 Quartos",
-                area: "180m²",
-                baths: "3 Banheiros",
-                link: "#"
-            }
-        ];
+    <button id="backToTop" class="back-to-top" aria-label="Voltar ao topo"><i class="ph-bold ph-arrow-up"></i></button>
+    <div id="cookie-banner" class="cookie-banner"><p>Este site utiliza cookies para garantir a melhor experiência. <a href="#">Saiba mais</a>.</p><button onclick="acceptCookies()">Aceitar</button></div>
 
-        // Gera os cards automaticamente
-        const container = document.getElementById('properties-container');
-        properties.forEach(prop => {
-            const card = `
-                <div class="prop-card">
-                    <div class="prop-img-container">
-                        <span class="prop-tag ${prop.type}">${prop.tag}</span>
-                        <img src="${prop.image}" alt="${prop.title}" class="prop-img">
-                    </div>
-                    <div class="prop-info">
-                        <div class="prop-price">${prop.price}</div>
-                        <h3 class="prop-title">${prop.title}</h3>
-                        <div class="prop-features">
-                            <span><i class="ph-bold ph-bed"></i> ${prop.beds}</span>
-                            <span><i class="ph-bold ph-ruler"></i> ${prop.area}</span>
-                            <span><i class="ph-bold ph-shower"></i> ${prop.baths}</span>
-                        </div>
-                        <a href="${prop.link}" class="prop-btn">Ver Detalhes</a>
-                    </div>
-                </div>
-            `;
-            container.innerHTML += card;
+    <script>
+        // Menu Mobile
+        function toggleMobileMenu() {
+            document.querySelector('.nav-links').classList.toggle('active');
+            document.querySelector('.mobile-menu-toggle').classList.toggle('active');
+            document.body.style.overflow = document.querySelector('.nav-links').classList.contains('active') ? 'hidden' : '';
+        }
+        document.querySelectorAll('.nav-links a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.querySelector('.nav-links').classList.remove('active');
+                document.querySelector('.mobile-menu-toggle').classList.remove('active');
+                document.body.style.overflow = '';
+            });
         });
+
+        // WhatsApp Form
+        function sendToWhatsApp() {
+            const goal = document.getElementById('userGoal').value.trim();
+            if (!goal) {
+                const ta = document.getElementById('userGoal');
+                ta.style.borderColor = '#EF4444'; ta.focus();
+                setTimeout(() => ta.style.borderColor = '', 3000);
+                return;
+            }
+            const msg = `Olá! Vim do site. Meu objetivo: ${encodeURIComponent(goal)}. Gostaria de agendar.`;
+            window.open(`https://wa.me/5511999999999?text=${msg}`, '_blank');
+        }
+        document.getElementById('userGoal').addEventListener('keydown', (e) => { if((e.ctrlKey || e.metaKey) && e.key === 'Enter') sendToWhatsApp(); });
+
+        // Scroll & Animations
+        const header = document.querySelector('header');
+        const backToTopBtn = document.getElementById('backToTop');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) header.classList.add('scrolled'); else header.classList.remove('scrolled');
+            if (window.scrollY > 500) backToTopBtn.classList.add('show'); else backToTopBtn.classList.remove('show');
+        });
+        backToTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => { if(entry.isIntersecting) { entry.target.style.opacity = '1'; entry.target.style.transform = 'translateY(0)'; } });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.service-card, .comp-card, .testimonial-card, .faq-item').forEach(el => {
+            el.style.opacity = '0'; el.style.transform = 'translateY(20px)'; el.style.transition = 'all 0.6s ease'; observer.observe(el);
+        });
+
+        // Stats Animation
+        const statsObserver = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if(entry.isIntersecting) {
+                    entry.target.querySelectorAll('.stat-number').forEach(stat => {
+                        const target = stat.innerText;
+                        let val = parseInt(target);
+                        let suffix = target.replace(/[0-9.]/g, '');
+                        let current = 0;
+                        const timer = setInterval(() => {
+                            current += val / 50;
+                            if(current >= val) { stat.innerText = target; clearInterval(timer); }
+                            else { stat.innerText = Math.ceil(current) + suffix; }
+                        }, 20);
+                    });
+                    statsObserver.unobserve(entry.target);
+                }
+            });
+        }, { threshold: 0.5 });
+        const sb = document.querySelector('.stats-bar');
+        if(sb) statsObserver.observe(sb);
+
+        // Cookies
+        if (!localStorage.getItem('cookiesAccepted')) document.getElementById('cookie-banner').style.display = 'block';
+        function acceptCookies() {
+            localStorage.setItem('cookiesAccepted', 'true');
+            document.getElementById('cookie-banner').style.display = 'none';
+        }
     </script>
 </body>
 </html>
