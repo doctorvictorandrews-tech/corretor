@@ -17,7 +17,7 @@
     
     <style>
         /* ========================================================================
-           DESIGN SYSTEM: "ULTIMATE PORTAL ENGINE v11.0"
+           DESIGN SYSTEM: "ULTIMATE PORTAL ENGINE v11.1 (Mobile Fix)"
         ======================================================================== */
         :root {
             --primary: #0F172A;       
@@ -74,7 +74,7 @@
         .nav-links { display: flex; gap: 40px; align-items: center; }
         .nav-link { font-weight: 700; font-size: 14px; color: var(--primary); opacity: 0.7; }
         .nav-link:hover { opacity: 1; color: var(--accent); }
-        .mobile-toggle { display: none; font-size: 32px; cursor: pointer; }
+        .mobile-toggle { display: none; font-size: 32px; cursor: pointer; color: var(--primary); }
 
         /* 4. HERO
         ======================================================================== */
@@ -99,7 +99,7 @@
 
         /* 6. LISTING (EDITORIAL PORTAL)
         ======================================================================== */
-        .listing-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 50px; }
+        .listing-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 50px; flex-wrap: wrap; gap: 20px; }
         #properties-list { display: flex; flex-direction: column; gap: 35px; }
         
         .portal-card { 
@@ -118,7 +118,7 @@
         .portal-address { font-size: 14px; color: var(--text-muted); margin-bottom: 10px; display: flex; align-items: center; gap: 8px; }
         .portal-title { font-size: 24px; font-weight: 800; color: var(--primary); margin-bottom: 20px; letter-spacing: -0.5px; }
         
-        .portal-stats { display: flex; gap: 35px; margin-bottom: 30px; }
+        .portal-stats { display: flex; gap: 35px; margin-bottom: 30px; flex-wrap: wrap; }
         .stat-item { display: flex; align-items: center; gap: 10px; font-size: 15px; font-weight: 600; color: var(--text-main); }
         .stat-item i { font-size: 24px; color: var(--accent); opacity: 0.6; }
         
@@ -168,7 +168,7 @@
         .sim-box input:focus { border-color: var(--accent); }
         .sim-res-val { font-size: 56px; font-weight: 900; color: var(--accent); margin-top: 10px; letter-spacing: -2px; }
 
-        /* 11. FOOTER (COMPLEXO)
+        /* 11. FOOTER
         ======================================================================== */
         footer { background: #020617; color: white; padding: 120px 0 50px; }
         .footer-main { display: grid; grid-template-columns: 2fr 1fr 1fr 1.5fr; gap: 80px; padding-bottom: 80px; border-bottom: 1px solid rgba(255,255,255,0.05); }
@@ -185,21 +185,79 @@
 
         .footer-bottom { padding-top: 50px; display: flex; justify-content: space-between; align-items: center; color: rgba(255,255,255,0.3); font-size: 13px; }
 
-        /* 12. WHATSAPP & MOBILE
+        /* 12. WHATSAPP & MOBILE ELEMENTS
         ======================================================================== */
         .whatsapp-float { position: fixed; bottom: 40px; right: 40px; width: 70px; height: 70px; background: #25D366; color: white; border-radius: 20px; display: flex; align-items: center; justify-content: center; font-size: 40px; z-index: 3000; box-shadow: 0 15px 30px rgba(37, 211, 102, 0.3); transition: 0.4s; }
         .whatsapp-float:hover { transform: scale(1.1) rotate(5deg); }
 
+        /* ========================================================================
+           RESPONSIVIDADE E CORREÇÕES MOBILE
+        ======================================================================== */
         @media (max-width: 991px) {
-            .portal-card { grid-template-columns: 1fr; }
+            /* Layout Geral */
             .hero-grid, .about-grid, .meto-grid, .sim-grid, .footer-main { grid-template-columns: 1fr; }
             .search-form { grid-template-columns: 1fr; }
             .hero { padding-top: 140px; text-align: center; }
             .hero-image-area { order: -1; margin-bottom: 50px; }
-            .nav-links { display: none; }
+            
+            /* Menu Mobile */
             .mobile-toggle { display: block; }
+            .nav-links { 
+                position: absolute; 
+                top: 80px; 
+                left: 0; 
+                width: 100%; 
+                background: white; 
+                flex-direction: column; 
+                padding: 40px; 
+                box-shadow: 0 20px 40px rgba(0,0,0,0.1); 
+                gap: 25px; 
+                opacity: 0; 
+                pointer-events: none; 
+                transform: translateY(-20px); 
+                transition: 0.4s;
+            }
+            .nav-links.active { 
+                opacity: 1; 
+                pointer-events: all; 
+                transform: translateY(0); 
+            }
             .simulator { padding: 40px 20px; }
             .about-img-box::before { display: none; }
+            
+            /* CORREÇÃO DOS CARDS DE IMÓVEIS (SOLICITADA) */
+            .portal-card { 
+                grid-template-columns: 1fr; /* Card em coluna única */
+            }
+            .portal-info {
+                padding: 25px 20px; /* Reduz padding lateral */
+            }
+            .portal-img-area {
+                min-height: 220px; /* Altura controlada da imagem */
+            }
+            .portal-stats {
+                gap: 15px; /* Menor espaço entre ícones */
+            }
+            
+            /* Footer do Card: Preço em cima, Botão embaixo ocupando 100% */
+            .portal-footer {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 15px;
+            }
+            .portal-footer > div {
+                display: flex;
+                flex-direction: column;
+                gap: 5px;
+            }
+            .price-label {
+                font-size: 28px;
+            }
+            .portal-footer .btn-outline {
+                width: 100%; /* Botão full width */
+                justify-content: center;
+                margin-top: 10px;
+            }
         }
     </style>
 </head>
@@ -211,10 +269,10 @@
         <div class="container nav-content">
             <a href="#" class="logo"><i class="ph-fill ph-house-line"></i> Bruno<span>Almeida</span></a>
             <nav class="nav-links">
-                <a href="#imoveis" class="nav-link">Imóveis</a>
-                <a href="#metodologia" class="nav-link">Processo</a>
-                <a href="#sobre" class="nav-link">Bio</a>
-                <a href="#faq" class="nav-link">Ajuda</a>
+                <a href="#imoveis" class="nav-link" onclick="toggleMenu()">Imóveis</a>
+                <a href="#metodologia" class="nav-link" onclick="toggleMenu()">Processo</a>
+                <a href="#sobre" class="nav-link" onclick="toggleMenu()">Bio</a>
+                <a href="#faq" class="nav-link" onclick="toggleMenu()">Ajuda</a>
                 <a href="https://wa.me/5511999999999" class="btn">Consultoria VIP</a>
             </nav>
             <div class="mobile-toggle" onclick="toggleMenu()"><i class="ph-bold ph-list"></i></div>
@@ -227,7 +285,7 @@
                 <span class="badge badge-accent">Private Broker & Advisory</span>
                 <h1>Arquitetando sua próxima <br><span>conquista</span> imobiliária.</h1>
                 <p>Mais que um catálogo de imóveis, uma consultoria baseada em dados e inteligência para garantir o melhor negócio da sua vida.</p>
-                <div style="display: flex; gap: 20px; margin-top: 50px; flex-wrap: wrap;">
+                <div style="display: flex; gap: 20px; margin-top: 50px; flex-wrap: wrap; justify-content: center;">
                     <a href="#imoveis" class="btn">Explorar Imóveis</a>
                     <a href="#simulador" class="btn btn-outline">Simular Financiamento</a>
                 </div>
@@ -515,7 +573,7 @@
                                     </div>
                                 </div>
                                 <div class="portal-footer">
-                                    <div><span class="price-label">${priceF}${this.intent === 'aluguel' ? '/mês' : ''}</span><span class="condo-label">Cond: R$ ${p.condo}</span></div>
+                                    <div><span class="price-label">${priceF}${this.intent === 'aluguel' ? '/mês' : ''}</span><br><span class="condo-label" style="font-size:12px; color:#64748B;">Cond: R$ ${p.condo}</span></div>
                                     <button class="btn btn-outline" style="padding:12px 30px; font-size: 13px;">Ver Detalhes</button>
                                 </div>
                             </div>
