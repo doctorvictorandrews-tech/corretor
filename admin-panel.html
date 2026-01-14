@@ -1,0 +1,1258 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Bruno Imóveis</title>
+    
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        
+        :root {
+            --primary: #0F172A;
+            --accent: #2563EB;
+            --success: #10B981;
+            --danger: #EF4444;
+            --warning: #F59E0B;
+            --border: #E2E8F0;
+            --bg-body: #F8FAFC;
+            --bg-card: #FFFFFF;
+        }
+        
+        body {
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background: var(--bg-body);
+            color: var(--primary);
+        }
+        
+        /* Sidebar */
+        .sidebar {
+            position: fixed;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 280px;
+            background: var(--primary);
+            color: white;
+            padding: 30px 0;
+            overflow-y: auto;
+        }
+        
+        .logo {
+            padding: 0 30px 30px;
+            font-size: 24px;
+            font-weight: 800;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        
+        .logo i {
+            color: var(--accent);
+            margin-right: 10px;
+        }
+        
+        .nav-menu {
+            margin-top: 30px;
+        }
+        
+        .nav-item {
+            padding: 15px 30px;
+            cursor: pointer;
+            transition: 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            font-weight: 600;
+            font-size: 15px;
+            opacity: 0.7;
+        }
+        
+        .nav-item:hover, .nav-item.active {
+            background: rgba(255,255,255,0.1);
+            opacity: 1;
+            border-left: 3px solid var(--accent);
+        }
+        
+        .nav-item i {
+            font-size: 22px;
+        }
+        
+        /* Main Content */
+        .main-content {
+            margin-left: 280px;
+            padding: 40px;
+        }
+        
+        .header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 40px;
+        }
+        
+        .header h1 {
+            font-size: 32px;
+            font-weight: 800;
+        }
+        
+        .btn {
+            padding: 12px 24px;
+            border: none;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+            transition: 0.3s;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+        }
+        
+        .btn-primary {
+            background: var(--accent);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: #1D4ED8;
+            transform: scale(1.02);
+        }
+        
+        .btn-success {
+            background: var(--success);
+            color: white;
+        }
+        
+        .btn-danger {
+            background: var(--danger);
+            color: white;
+        }
+        
+        .btn-outline {
+            background: white;
+            color: var(--primary);
+            border: 2px solid var(--border);
+        }
+        
+        /* Stats Cards */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 25px;
+            margin-bottom: 40px;
+        }
+        
+        .stat-card {
+            background: white;
+            padding: 25px;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+        }
+        
+        .stat-card-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .stat-card-icon {
+            width: 50px;
+            height: 50px;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+        }
+        
+        .stat-card-value {
+            font-size: 32px;
+            font-weight: 800;
+            color: var(--primary);
+        }
+        
+        .stat-card-label {
+            font-size: 13px;
+            color: #64748B;
+            font-weight: 600;
+        }
+        
+        /* Table */
+        .table-container {
+            background: white;
+            border-radius: 16px;
+            border: 1px solid var(--border);
+            overflow: hidden;
+        }
+        
+        .table-header {
+            padding: 25px 30px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .search-box {
+            display: flex;
+            align-items: center;
+            background: var(--bg-body);
+            padding: 10px 15px;
+            border-radius: 10px;
+            gap: 10px;
+            width: 300px;
+        }
+        
+        .search-box input {
+            border: none;
+            background: none;
+            outline: none;
+            width: 100%;
+            font-size: 14px;
+        }
+        
+        table {
+            width: 100%;
+            border-collapse: collapse;
+        }
+        
+        thead {
+            background: var(--bg-body);
+        }
+        
+        th {
+            padding: 15px 30px;
+            text-align: left;
+            font-size: 12px;
+            font-weight: 800;
+            text-transform: uppercase;
+            color: #64748B;
+            letter-spacing: 1px;
+        }
+        
+        td {
+            padding: 20px 30px;
+            border-bottom: 1px solid var(--border);
+            font-size: 14px;
+        }
+        
+        tr:hover {
+            background: var(--bg-body);
+        }
+        
+        .property-thumb {
+            width: 60px;
+            height: 45px;
+            border-radius: 8px;
+            object-fit: cover;
+        }
+        
+        .badge {
+            padding: 5px 12px;
+            border-radius: 6px;
+            font-size: 11px;
+            font-weight: 700;
+            text-transform: uppercase;
+        }
+        
+        .badge-success {
+            background: #D1FAE5;
+            color: #065F46;
+        }
+        
+        .badge-warning {
+            background: #FEF3C7;
+            color: #92400E;
+        }
+        
+        .badge-danger {
+            background: #FEE2E2;
+            color: #991B1B;
+        }
+        
+        .action-buttons {
+            display: flex;
+            gap: 8px;
+        }
+        
+        .btn-icon {
+            width: 35px;
+            height: 35px;
+            border-radius: 8px;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: 0.3s;
+        }
+        
+        .btn-icon:hover {
+            transform: scale(1.1);
+        }
+        
+        .btn-edit {
+            background: #DBEAFE;
+            color: #1E40AF;
+        }
+        
+        .btn-delete {
+            background: #FEE2E2;
+            color: #991B1B;
+        }
+        
+        /* Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.7);
+            z-index: 1000;
+            align-items: center;
+            justify-content: center;
+            padding: 40px;
+            overflow-y: auto;
+        }
+        
+        .modal.active {
+            display: flex;
+        }
+        
+        .modal-content {
+            background: white;
+            border-radius: 20px;
+            width: 100%;
+            max-width: 900px;
+            max-height: 90vh;
+            overflow-y: auto;
+            position: relative;
+        }
+        
+        .modal-header {
+            padding: 30px;
+            border-bottom: 1px solid var(--border);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: sticky;
+            top: 0;
+            background: white;
+            z-index: 10;
+        }
+        
+        .modal-header h2 {
+            font-size: 24px;
+            font-weight: 800;
+        }
+        
+        .modal-close {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            border: none;
+            background: var(--bg-body);
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 20px;
+        }
+        
+        .modal-body {
+            padding: 30px;
+        }
+        
+        .form-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+        }
+        
+        .form-group {
+            margin-bottom: 25px;
+        }
+        
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+        
+        .form-group label {
+            display: block;
+            font-size: 13px;
+            font-weight: 700;
+            margin-bottom: 8px;
+            color: var(--primary);
+        }
+        
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px 15px;
+            border: 1.5px solid var(--border);
+            border-radius: 10px;
+            font-size: 14px;
+            font-family: inherit;
+            transition: 0.3s;
+        }
+        
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            border-color: var(--accent);
+            outline: none;
+        }
+        
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+        
+        /* Image Upload */
+        .image-upload-area {
+            border: 2px dashed var(--border);
+            border-radius: 12px;
+            padding: 30px;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.3s;
+        }
+        
+        .image-upload-area:hover {
+            border-color: var(--accent);
+            background: var(--bg-body);
+        }
+        
+        .image-upload-area i {
+            font-size: 48px;
+            color: var(--accent);
+            margin-bottom: 15px;
+        }
+        
+        .image-preview-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 15px;
+            margin-top: 20px;
+        }
+        
+        .image-preview-item {
+            position: relative;
+            aspect-ratio: 4/3;
+            border-radius: 12px;
+            overflow: hidden;
+        }
+        
+        .image-preview-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .image-preview-item .remove-btn {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: var(--danger);
+            color: white;
+            border: none;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        /* GitHub Sync Status */
+        .sync-status {
+            position: fixed;
+            bottom: 30px;
+            right: 30px;
+            background: white;
+            padding: 20px 25px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            display: none;
+            align-items: center;
+            gap: 12px;
+            z-index: 100;
+        }
+        
+        .sync-status.active {
+            display: flex;
+        }
+        
+        .sync-spinner {
+            width: 20px;
+            height: 20px;
+            border: 2px solid var(--border);
+            border-top-color: var(--accent);
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
+        
+        .toast {
+            position: fixed;
+            top: 30px;
+            right: 30px;
+            background: var(--success);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            display: none;
+            align-items: center;
+            gap: 12px;
+            z-index: 1001;
+            animation: slideIn 0.3s ease;
+        }
+        
+        .toast.active {
+            display: flex;
+        }
+        
+        .toast.error {
+            background: var(--danger);
+        }
+        
+        @keyframes slideIn {
+            from {
+                transform: translateX(400px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        /* Loading Overlay */
+        .loading-overlay {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(0,0,0,0.5);
+            z-index: 2000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .loading-overlay.active {
+            display: flex;
+        }
+        
+        .loading-spinner {
+            width: 60px;
+            height: 60px;
+            border: 4px solid white;
+            border-top-color: transparent;
+            border-radius: 50%;
+            animation: spin 1s linear infinite;
+        }
+        
+        /* Responsive */
+        @media (max-width: 991px) {
+            .sidebar {
+                transform: translateX(-100%);
+                transition: 0.3s;
+            }
+            
+            .sidebar.active {
+                transform: translateX(0);
+            }
+            
+            .main-content {
+                margin-left: 0;
+            }
+            
+            .stats-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+            
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .image-preview-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Loading Overlay -->
+    <div class="loading-overlay" id="loading-overlay">
+        <div class="loading-spinner"></div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <i class="ph-fill ph-check-circle"></i>
+        <span id="toast-message">Mensagem</span>
+    </div>
+
+    <!-- GitHub Sync Status -->
+    <div class="sync-status" id="sync-status">
+        <div class="sync-spinner"></div>
+        <span>Sincronizando com GitHub...</span>
+    </div>
+
+    <!-- Sidebar -->
+    <aside class="sidebar" id="sidebar">
+        <div class="logo">
+            <i class="ph-fill ph-house-line"></i>
+            Bruno Admin
+        </div>
+        
+        <nav class="nav-menu">
+            <div class="nav-item active" onclick="app.switchView('dashboard')">
+                <i class="ph-fill ph-squares-four"></i>
+                Dashboard
+            </div>
+            <div class="nav-item" onclick="app.switchView('properties')">
+                <i class="ph-fill ph-buildings"></i>
+                Imóveis
+            </div>
+            <div class="nav-item" onclick="app.switchView('settings')">
+                <i class="ph-fill ph-gear"></i>
+                Configurações
+            </div>
+            <div class="nav-item" onclick="app.syncGitHub()">
+                <i class="ph-fill ph-git-branch"></i>
+                Sincronizar GitHub
+            </div>
+            <div class="nav-item" onclick="app.logout()">
+                <i class="ph-fill ph-sign-out"></i>
+                Sair
+            </div>
+        </nav>
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+        <!-- Dashboard View -->
+        <div id="dashboard-view">
+            <div class="header">
+                <h1>Dashboard</h1>
+                <button class="btn btn-primary" onclick="app.openModal()">
+                    <i class="ph-bold ph-plus"></i>
+                    Novo Imóvel
+                </button>
+            </div>
+
+            <div class="stats-grid">
+                <div class="stat-card">
+                    <div class="stat-card-header">
+                        <div class="stat-card-icon" style="background: #DBEAFE; color: #1E40AF;">
+                            <i class="ph-fill ph-buildings"></i>
+                        </div>
+                    </div>
+                    <div class="stat-card-value" id="total-properties">0</div>
+                    <div class="stat-card-label">Total de Imóveis</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-card-header">
+                        <div class="stat-card-icon" style="background: #D1FAE5; color: #065F46;">
+                            <i class="ph-fill ph-currency-dollar"></i>
+                        </div>
+                    </div>
+                    <div class="stat-card-value" id="total-venda">0</div>
+                    <div class="stat-card-label">Para Venda</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-card-header">
+                        <div class="stat-card-icon" style="background: #FEF3C7; color: #92400E;">
+                            <i class="ph-fill ph-key"></i>
+                        </div>
+                    </div>
+                    <div class="stat-card-value" id="total-aluguel">0</div>
+                    <div class="stat-card-label">Para Aluguel</div>
+                </div>
+                
+                <div class="stat-card">
+                    <div class="stat-card-header">
+                        <div class="stat-card-icon" style="background: #E0E7FF; color: #3730A3;">
+                            <i class="ph-fill ph-clock"></i>
+                        </div>
+                    </div>
+                    <div class="stat-card-value" id="last-sync">Nunca</div>
+                    <div class="stat-card-label">Último Sync</div>
+                </div>
+            </div>
+
+            <div class="table-container">
+                <div class="table-header">
+                    <h3>Todos os Imóveis</h3>
+                    <div class="search-box">
+                        <i class="ph-bold ph-magnifying-glass"></i>
+                        <input type="text" placeholder="Buscar imóveis..." onkeyup="app.searchProperties(this.value)">
+                    </div>
+                </div>
+                
+                <table>
+                    <thead>
+                        <tr>
+                            <th>Imóvel</th>
+                            <th>Localização</th>
+                            <th>Tipo</th>
+                            <th>Preço</th>
+                            <th>Status</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tbody id="properties-table">
+                        <tr>
+                            <td colspan="6" style="text-align: center; padding: 60px;">
+                                Nenhum imóvel cadastrado. Clique em "Novo Imóvel" para começar.
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- Settings View (hidden by default) -->
+        <div id="settings-view" style="display: none;">
+            <div class="header">
+                <h1>Configurações do GitHub</h1>
+            </div>
+            
+            <div class="table-container" style="max-width: 700px;">
+                <div class="modal-body">
+                    <div class="form-group">
+                        <label>GitHub Username</label>
+                        <input type="text" id="github-username" placeholder="seu-usuario">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Nome do Repositório</label>
+                        <input type="text" id="github-repo" placeholder="nome-do-repo">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>GitHub Token (Personal Access Token)</label>
+                        <input type="password" id="github-token" placeholder="ghp_xxxxxxxxxxxx">
+                        <small style="color: #64748B; margin-top: 8px; display: block;">
+                            <a href="https://github.com/settings/tokens" target="_blank" style="color: var(--accent);">
+                                Criar um novo token aqui
+                            </a> com permissões de "repo"
+                        </small>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Branch</label>
+                        <input type="text" id="github-branch" placeholder="main" value="main">
+                    </div>
+                    
+                    <button class="btn btn-success" onclick="app.saveGitHubSettings()">
+                        <i class="ph-bold ph-floppy-disk"></i>
+                        Salvar Configurações
+                    </button>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal: New/Edit Property -->
+    <div class="modal" id="property-modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2 id="modal-title">Novo Imóvel</h2>
+                <button class="modal-close" onclick="app.closeModal()">
+                    <i class="ph-bold ph-x"></i>
+                </button>
+            </div>
+            
+            <form class="modal-body" id="property-form" onsubmit="app.saveProperty(event)">
+                <div class="form-grid">
+                    <div class="form-group full-width">
+                        <label>Título do Imóvel *</label>
+                        <input type="text" name="title" required placeholder="Ex: Apartamento Garden - Vila Mariana">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Localização *</label>
+                        <input type="text" name="loc" required placeholder="Ex: Vila Mariana, SP">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Tipo *</label>
+                        <select name="type" required>
+                            <option value="">Selecione...</option>
+                            <option value="Apartamento">Apartamento</option>
+                            <option value="Casa">Casa</option>
+                            <option value="Sobrado">Sobrado</option>
+                            <option value="Cobertura">Cobertura</option>
+                            <option value="Studio">Studio</option>
+                            <option value="Loft">Loft</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Finalidade *</label>
+                        <select name="intent" required>
+                            <option value="">Selecione...</option>
+                            <option value="venda">Venda</option>
+                            <option value="aluguel">Aluguel</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Preço (R$) *</label>
+                        <input type="number" name="price" required placeholder="750000">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Quartos *</label>
+                        <input type="number" name="beds" required min="0" placeholder="2">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Banheiros *</label>
+                        <input type="number" name="baths" required min="0" placeholder="2">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Área (m²) *</label>
+                        <input type="number" name="area" required min="0" placeholder="95">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Condomínio (R$) *</label>
+                        <input type="number" name="condo" required min="0" placeholder="550">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Status *</label>
+                        <input type="text" name="status" required placeholder="Destaque, Exclusivo, Novo...">
+                    </div>
+                    
+                    <div class="form-group">
+                        <label>Categoria *</label>
+                        <select name="category" required>
+                            <option value="">Selecione...</option>
+                            <option value="destaque">Destaque</option>
+                            <option value="luxo">Luxo</option>
+                            <option value="novo">Novo</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-group full-width">
+                        <label>Descrição</label>
+                        <textarea name="description" placeholder="Descrição completa do imóvel..."></textarea>
+                    </div>
+                    
+                    <div class="form-group full-width">
+                        <label>Fotos do Imóvel *</label>
+                        <div class="image-upload-area" onclick="document.getElementById('image-upload').click()">
+                            <i class="ph-bold ph-upload-simple"></i>
+                            <p><strong>Clique para fazer upload</strong> ou arraste as imagens aqui</p>
+                            <p style="color: #64748B; font-size: 13px; margin-top: 8px;">PNG, JPG até 5MB cada</p>
+                        </div>
+                        <input type="file" id="image-upload" accept="image/*" multiple style="display: none;" onchange="app.handleImageUpload(event)">
+                        
+                        <div class="image-preview-grid" id="image-preview"></div>
+                        <input type="hidden" name="images" id="images-data">
+                    </div>
+                    
+                    <div class="form-group full-width">
+                        <label>Vídeo do Imóvel (YouTube URL)</label>
+                        <input type="url" name="video" placeholder="https://youtube.com/watch?v=...">
+                    </div>
+                </div>
+                
+                <div style="display: flex; gap: 15px; margin-top: 30px; justify-content: flex-end;">
+                    <button type="button" class="btn btn-outline" onclick="app.closeModal()">Cancelar</button>
+                    <button type="submit" class="btn btn-success">
+                        <i class="ph-bold ph-floppy-disk"></i>
+                        Salvar Imóvel
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Main Application Controller
+        const app = {
+            properties: [],
+            currentProperty: null,
+            uploadedImages: [],
+            githubConfig: {},
+            
+            init() {
+                this.loadFromLocalStorage();
+                this.loadGitHubSettings();
+                this.renderProperties();
+                this.updateStats();
+            },
+            
+            // View Management
+            switchView(view) {
+                document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
+                event.target.closest('.nav-item').classList.add('active');
+                
+                document.getElementById('dashboard-view').style.display = view === 'dashboard' ? 'block' : 'none';
+                document.getElementById('settings-view').style.display = view === 'settings' ? 'block' : 'none';
+            },
+            
+            // Property Management
+            openModal(property = null) {
+                this.currentProperty = property;
+                const modal = document.getElementById('property-modal');
+                const form = document.getElementById('property-form');
+                const title = document.getElementById('modal-title');
+                
+                if (property) {
+                    title.textContent = 'Editar Imóvel';
+                    form.title.value = property.title;
+                    form.loc.value = property.loc;
+                    form.type.value = property.type;
+                    form.intent.value = property.intent;
+                    form.price.value = property.price;
+                    form.beds.value = property.beds;
+                    form.baths.value = property.baths;
+                    form.area.value = property.area;
+                    form.condo.value = property.condo;
+                    form.status.value = property.status;
+                    form.category.value = property.category;
+                    form.description.value = property.description || '';
+                    form.video.value = property.video || '';
+                    
+                    // Load images
+                    this.uploadedImages = property.images || [];
+                    this.renderImagePreviews();
+                } else {
+                    title.textContent = 'Novo Imóvel';
+                    form.reset();
+                    this.uploadedImages = [];
+                    document.getElementById('image-preview').innerHTML = '';
+                }
+                
+                modal.classList.add('active');
+            },
+            
+            closeModal() {
+                document.getElementById('property-modal').classList.remove('active');
+                this.currentProperty = null;
+                this.uploadedImages = [];
+            },
+            
+            saveProperty(event) {
+                event.preventDefault();
+                
+                const formData = new FormData(event.target);
+                const property = {
+                    id: this.currentProperty ? this.currentProperty.id : Date.now(),
+                    title: formData.get('title'),
+                    loc: formData.get('loc'),
+                    type: formData.get('type'),
+                    intent: formData.get('intent'),
+                    price: parseFloat(formData.get('price')),
+                    beds: parseInt(formData.get('beds')),
+                    baths: parseInt(formData.get('baths')),
+                    area: parseFloat(formData.get('area')),
+                    condo: parseFloat(formData.get('condo')),
+                    status: formData.get('status'),
+                    category: formData.get('category'),
+                    description: formData.get('description'),
+                    video: formData.get('video'),
+                    images: this.uploadedImages,
+                    createdAt: this.currentProperty ? this.currentProperty.createdAt : new Date().toISOString(),
+                    updatedAt: new Date().toISOString()
+                };
+                
+                if (this.currentProperty) {
+                    // Update existing
+                    const index = this.properties.findIndex(p => p.id === this.currentProperty.id);
+                    this.properties[index] = property;
+                    this.showToast('Imóvel atualizado com sucesso!');
+                } else {
+                    // Add new
+                    this.properties.push(property);
+                    this.showToast('Imóvel cadastrado com sucesso!');
+                }
+                
+                this.saveToLocalStorage();
+                this.renderProperties();
+                this.updateStats();
+                this.closeModal();
+                
+                // Auto sync to GitHub
+                if (this.githubConfig.token) {
+                    setTimeout(() => this.syncGitHub(), 1000);
+                }
+            },
+            
+            deleteProperty(id) {
+                if (!confirm('Tem certeza que deseja excluir este imóvel?')) return;
+                
+                this.properties = this.properties.filter(p => p.id !== id);
+                this.saveToLocalStorage();
+                this.renderProperties();
+                this.updateStats();
+                this.showToast('Imóvel excluído com sucesso!');
+                
+                // Auto sync to GitHub
+                if (this.githubConfig.token) {
+                    setTimeout(() => this.syncGitHub(), 1000);
+                }
+            },
+            
+            searchProperties(query) {
+                const rows = document.querySelectorAll('#properties-table tr');
+                rows.forEach(row => {
+                    const text = row.textContent.toLowerCase();
+                    row.style.display = text.includes(query.toLowerCase()) ? '' : 'none';
+                });
+            },
+            
+            // Image Upload
+            handleImageUpload(event) {
+                const files = Array.from(event.target.files);
+                
+                files.forEach(file => {
+                    if (file.size > 5 * 1024 * 1024) {
+                        alert(`Arquivo ${file.name} é muito grande. Máximo 5MB.`);
+                        return;
+                    }
+                    
+                    const reader = new FileReader();
+                    reader.onload = (e) => {
+                        this.uploadedImages.push(e.target.result);
+                        this.renderImagePreviews();
+                    };
+                    reader.readAsDataURL(file);
+                });
+            },
+            
+            removeImage(index) {
+                this.uploadedImages.splice(index, 1);
+                this.renderImagePreviews();
+            },
+            
+            renderImagePreviews() {
+                const container = document.getElementById('image-preview');
+                container.innerHTML = this.uploadedImages.map((img, index) => `
+                    <div class="image-preview-item">
+                        <img src="${img}" alt="Preview ${index + 1}">
+                        <button type="button" class="remove-btn" onclick="app.removeImage(${index})">
+                            <i class="ph-bold ph-x"></i>
+                        </button>
+                    </div>
+                `).join('');
+                
+                document.getElementById('images-data').value = JSON.stringify(this.uploadedImages);
+            },
+            
+            // Rendering
+            renderProperties() {
+                const tbody = document.getElementById('properties-table');
+                
+                if (this.properties.length === 0) {
+                    tbody.innerHTML = `
+                        <tr>
+                            <td colspan="6" style="text-align: center; padding: 60px;">
+                                Nenhum imóvel cadastrado. Clique em "Novo Imóvel" para começar.
+                            </td>
+                        </tr>
+                    `;
+                    return;
+                }
+                
+                tbody.innerHTML = this.properties.map(p => `
+                    <tr>
+                        <td>
+                            <div style="display: flex; align-items: center; gap: 15px;">
+                                <img src="${p.images[0] || 'https://via.placeholder.com/60x45'}" class="property-thumb" alt="${p.title}">
+                                <strong>${p.title}</strong>
+                            </div>
+                        </td>
+                        <td>${p.loc}</td>
+                        <td>${p.type}</td>
+                        <td><strong>R$ ${p.price.toLocaleString('pt-BR')}</strong></td>
+                        <td><span class="badge badge-success">${p.status}</span></td>
+                        <td>
+                            <div class="action-buttons">
+                                <button class="btn-icon btn-edit" onclick='app.openModal(${JSON.stringify(p).replace(/'/g, "&#39;")})'>
+                                    <i class="ph-bold ph-pencil-simple"></i>
+                                </button>
+                                <button class="btn-icon btn-delete" onclick="app.deleteProperty(${p.id})">
+                                    <i class="ph-bold ph-trash"></i>
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                `).join('');
+            },
+            
+            updateStats() {
+                document.getElementById('total-properties').textContent = this.properties.length;
+                document.getElementById('total-venda').textContent = this.properties.filter(p => p.intent === 'venda').length;
+                document.getElementById('total-aluguel').textContent = this.properties.filter(p => p.intent === 'aluguel').length;
+            },
+            
+            // GitHub Sync
+            loadGitHubSettings() {
+                const saved = localStorage.getItem('github_config');
+                if (saved) {
+                    this.githubConfig = JSON.parse(saved);
+                    document.getElementById('github-username').value = this.githubConfig.username || '';
+                    document.getElementById('github-repo').value = this.githubConfig.repo || '';
+                    document.getElementById('github-token').value = this.githubConfig.token || '';
+                    document.getElementById('github-branch').value = this.githubConfig.branch || 'main';
+                }
+                
+                const lastSync = localStorage.getItem('last_sync');
+                if (lastSync) {
+                    const date = new Date(lastSync);
+                    document.getElementById('last-sync').textContent = date.toLocaleTimeString('pt-BR');
+                }
+            },
+            
+            saveGitHubSettings() {
+                this.githubConfig = {
+                    username: document.getElementById('github-username').value,
+                    repo: document.getElementById('github-repo').value,
+                    token: document.getElementById('github-token').value,
+                    branch: document.getElementById('github-branch').value || 'main'
+                };
+                
+                localStorage.setItem('github_config', JSON.stringify(this.githubConfig));
+                this.showToast('Configurações salvas com sucesso!');
+            },
+            
+            async syncGitHub() {
+                if (!this.githubConfig.token || !this.githubConfig.username || !this.githubConfig.repo) {
+                    this.showToast('Configure o GitHub primeiro nas Configurações', 'error');
+                    return;
+                }
+                
+                const syncStatus = document.getElementById('sync-status');
+                const loadingOverlay = document.getElementById('loading-overlay');
+                
+                syncStatus.classList.add('active');
+                loadingOverlay.classList.add('active');
+                
+                try {
+                    // Prepare the properties.json file
+                    const content = JSON.stringify(this.properties, null, 2);
+                    const encodedContent = btoa(unescape(encodeURIComponent(content)));
+                    
+                    // Check if file exists to get SHA
+                    const checkUrl = `https://api.github.com/repos/${this.githubConfig.username}/${this.githubConfig.repo}/contents/data/properties.json?ref=${this.githubConfig.branch}`;
+                    
+                    let sha = null;
+                    try {
+                        const checkResponse = await fetch(checkUrl, {
+                            headers: {
+                                'Authorization': `token ${this.githubConfig.token}`,
+                                'Accept': 'application/vnd.github.v3+json'
+                            }
+                        });
+                        
+                        if (checkResponse.ok) {
+                            const data = await checkResponse.json();
+                            sha = data.sha;
+                        }
+                    } catch (e) {
+                        // File doesn't exist, that's ok
+                    }
+                    
+                    // Create or update file
+                    const url = `https://api.github.com/repos/${this.githubConfig.username}/${this.githubConfig.repo}/contents/data/properties.json`;
+                    
+                    const payload = {
+                        message: `Update properties - ${new Date().toISOString()}`,
+                        content: encodedContent,
+                        branch: this.githubConfig.branch
+                    };
+                    
+                    if (sha) {
+                        payload.sha = sha;
+                    }
+                    
+                    const response = await fetch(url, {
+                        method: 'PUT',
+                        headers: {
+                            'Authorization': `token ${this.githubConfig.token}`,
+                            'Accept': 'application/vnd.github.v3+json',
+                            'Content-Type': 'application/json'
+                        },
+                        body: JSON.stringify(payload)
+                    });
+                    
+                    if (response.ok) {
+                        localStorage.setItem('last_sync', new Date().toISOString());
+                        this.loadGitHubSettings();
+                        this.showToast('Sincronizado com GitHub com sucesso!');
+                    } else {
+                        const error = await response.json();
+                        throw new Error(error.message || 'Erro ao sincronizar');
+                    }
+                    
+                } catch (error) {
+                    console.error('Sync error:', error);
+                    this.showToast(`Erro ao sincronizar: ${error.message}`, 'error');
+                } finally {
+                    syncStatus.classList.remove('active');
+                    loadingOverlay.classList.remove('active');
+                }
+            },
+            
+            // Local Storage
+            saveToLocalStorage() {
+                localStorage.setItem('properties', JSON.stringify(this.properties));
+            },
+            
+            loadFromLocalStorage() {
+                const saved = localStorage.getItem('properties');
+                if (saved) {
+                    this.properties = JSON.parse(saved);
+                }
+            },
+            
+            // Utilities
+            showToast(message, type = 'success') {
+                const toast = document.getElementById('toast');
+                const messageEl = document.getElementById('toast-message');
+                
+                messageEl.textContent = message;
+                toast.className = `toast active ${type === 'error' ? 'error' : ''}`;
+                
+                setTimeout(() => {
+                    toast.classList.remove('active');
+                }, 3000);
+            },
+            
+            logout() {
+                if (confirm('Deseja realmente sair?')) {
+                    window.location.reload();
+                }
+            }
+        };
+        
+        // Initialize app
+        window.onload = () => app.init();
+    </script>
+</body>
+</html>
