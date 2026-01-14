@@ -7,6 +7,13 @@
     <title>Bruno Almeida | Inteligência Imobiliária Premium</title>
     <meta name="description" content="Portal imobiliário com busca inteligente, simulação de crédito e consultoria especializada.">
     
+    <!-- SEO Melhorado -->
+    <meta name="keywords" content="imóveis, apartamentos, casas, corretora, são paulo, venda, aluguel">
+    <meta name="author" content="Bruno Almeida">
+    <meta property="og:title" content="Bruno Almeida - Inteligência Imobiliária Premium">
+    <meta property="og:description" content="Consultoria baseada em dados para o melhor negócio imobiliário">
+    <meta property="og:type" content="website">
+    
     <link rel="icon" href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 100 100%22><text y=%22.9em%22 font-size=%2290%22>🏢</text></svg>">
     
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -17,7 +24,7 @@
     
     <style>
         /* ========================================================================
-           DESIGN SYSTEM: "ULTIMATE PORTAL ENGINE v11.1 (Mobile Fix)"
+           DESIGN SYSTEM: "ULTIMATE PORTAL ENGINE v12 (Enhanced Edition)"
         ======================================================================== */
         :root {
             --primary: #0F172A;       
@@ -60,9 +67,26 @@
 
         /* 2. BUTTONS
         ======================================================================== */
-        .btn { display: inline-flex; align-items: center; justify-content: center; gap: 12px; padding: 18px 40px; background: var(--accent); color: white; border: none; border-radius: 12px; font-weight: 700; font-size: 15px; cursor: pointer; transition: var(--transition); text-decoration: none; }
+        .btn { display: inline-flex; align-items: center; justify-content: center; gap: 12px; padding: 18px 40px; background: var(--accent); color: white; border: none; border-radius: 12px; font-weight: 700; font-size: 15px; cursor: pointer; transition: var(--transition); text-decoration: none; position: relative; overflow: hidden; }
         .btn:hover { background: var(--primary); transform: scale(1.02); box-shadow: var(--shadow-lg); }
         .btn-outline { background: white; color: var(--primary); border: 2px solid var(--primary); }
+        .btn:disabled { opacity: 0.5; cursor: not-allowed; }
+        
+        /* Loading Spinner */
+        .btn.loading::after {
+            content: '';
+            position: absolute;
+            width: 16px;
+            height: 16px;
+            border: 2px solid white;
+            border-top-color: transparent;
+            border-radius: 50%;
+            animation: spin 0.6s linear infinite;
+        }
+        
+        @keyframes spin {
+            to { transform: rotate(360deg); }
+        }
 
         /* 3. HEADER
         ======================================================================== */
@@ -72,7 +96,7 @@
         .logo { font-size: 24px; font-weight: 900; color: var(--primary); text-decoration: none; display: flex; align-items: center; gap: 8px; }
         .logo i { color: var(--accent); }
         .nav-links { display: flex; gap: 40px; align-items: center; }
-        .nav-link { font-weight: 700; font-size: 14px; color: var(--primary); opacity: 0.7; }
+        .nav-link { font-weight: 700; font-size: 14px; color: var(--primary); opacity: 0.7; text-decoration: none; transition: 0.3s; }
         .nav-link:hover { opacity: 1; color: var(--accent); }
         .mobile-toggle { display: none; font-size: 32px; cursor: pointer; color: var(--primary); }
 
@@ -86,30 +110,211 @@
         .hero-image-area img { width: 100%; border-radius: var(--radius-lg); box-shadow: var(--shadow-lg); transform: perspective(1000px) rotateY(-5deg); transition: 1s; }
         .hero-image-area:hover img { transform: perspective(1000px) rotateY(0deg); }
 
-        /* 5. SEARCH SYSTEM
+        /* 5. SEARCH SYSTEM (ENHANCED)
         ======================================================================== */
         .search-engine { background: white; border-radius: var(--radius-md); padding: 40px; box-shadow: var(--shadow-lg); margin-top: -80px; z-index: 100; border: 1px solid var(--border-color); position: relative; }
         .search-tabs { display: flex; gap: 30px; margin-bottom: 30px; }
         .search-tab { cursor: pointer; font-weight: 800; color: var(--text-light); font-size: 14px; text-transform: uppercase; letter-spacing: 1px; transition: 0.3s; padding-bottom: 5px; border-bottom: 2px solid transparent; }
         .search-tab.active { color: var(--accent); border-bottom-color: var(--accent); }
-        .search-form { display: grid; grid-template-columns: 2.5fr 1.2fr 1.2fr 1fr; gap: 20px; }
+        .search-form { display: grid; grid-template-columns: 2.5fr 1.2fr 1.2fr 1fr; gap: 20px; margin-bottom: 25px; }
         .input-group label { font-size: 11px; font-weight: 800; color: var(--text-main); text-transform: uppercase; margin-bottom: 10px; display: block; }
         .input-group input, .input-group select { width: 100%; padding: 0 20px; height: 55px; border: 1.5px solid var(--border-color); border-radius: 12px; font-family: inherit; font-size: 15px; background: var(--bg-body); transition: 0.3s; }
-        .input-group input:focus { border-color: var(--accent); background: white; }
+        .input-group input:focus, .input-group select:focus { border-color: var(--accent); background: white; }
 
-        /* 6. LISTING (EDITORIAL PORTAL)
+        /* NOVO: Advanced Filters */
+        .advanced-filters {
+            display: none;
+            padding-top: 25px;
+            border-top: 1px solid var(--border-color);
+            margin-top: 25px;
+            animation: slideDown 0.3s ease;
+        }
+        
+        .advanced-filters.active { display: block; }
+        
+        @keyframes slideDown {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .filter-toggle {
+            text-align: center;
+            margin-top: 20px;
+        }
+        
+        .filter-toggle-btn {
+            background: none;
+            border: none;
+            color: var(--accent);
+            font-weight: 700;
+            font-size: 14px;
+            cursor: pointer;
+            padding: 10px 20px;
+            border-radius: 8px;
+            transition: 0.3s;
+        }
+        
+        .filter-toggle-btn:hover {
+            background: var(--accent-soft);
+        }
+
+        .price-range-container {
+            margin-top: 20px;
+        }
+        
+        .price-range-inputs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-top: 15px;
+        }
+        
+        .price-slider {
+            width: 100%;
+            height: 6px;
+            background: var(--border-color);
+            border-radius: 5px;
+            outline: none;
+            margin-top: 10px;
+        }
+
+        /* 6. LISTING (EDITORIAL PORTAL) - ENHANCED
         ======================================================================== */
         .listing-header { display: flex; justify-content: space-between; align-items: center; margin-bottom: 50px; flex-wrap: wrap; gap: 20px; }
-        #properties-list { display: flex; flex-direction: column; gap: 35px; }
+        
+        /* NOVO: Quick Filters */
+        .quick-filters {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 30px;
+        }
+        
+        .quick-filter-btn {
+            padding: 10px 20px;
+            background: white;
+            border: 1.5px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 13px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: 0.3s;
+            color: var(--text-main);
+        }
+        
+        .quick-filter-btn:hover, .quick-filter-btn.active {
+            border-color: var(--accent);
+            background: var(--accent-soft);
+            color: var(--accent);
+        }
+        
+        /* NOVO: Compare Bar */
+        .compare-bar {
+            position: fixed;
+            bottom: -100px;
+            left: 0;
+            right: 0;
+            background: var(--primary);
+            color: white;
+            padding: 20px 0;
+            box-shadow: 0 -5px 20px rgba(0,0,0,0.1);
+            z-index: 1500;
+            transition: bottom 0.4s ease;
+        }
+        
+        .compare-bar.active {
+            bottom: 0;
+        }
+        
+        .compare-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+        
+        .compare-items {
+            display: flex;
+            gap: 20px;
+        }
+        
+        .compare-item {
+            padding: 10px 20px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 8px;
+            font-size: 14px;
+        }
+        
+        #properties-list { display: flex; flex-direction: column; gap: 35px; position: relative; }
+        
+        /* Loading Skeleton */
+        .skeleton-card {
+            background: white;
+            border-radius: 20px;
+            overflow: hidden;
+            animation: pulse 1.5s ease-in-out infinite;
+        }
+        
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
         
         .portal-card { 
             display: grid; grid-template-columns: 420px 1fr; 
             background: white; border-radius: 20px; overflow: hidden; 
             transition: var(--transition); border: 1px solid #f1f1f1;
+            position: relative;
         }
         .portal-card:hover { transform: scale(1.01); border-color: var(--accent); box-shadow: var(--shadow-lg); }
         
-        .portal-img-area { position: relative; height: 100%; min-height: 280px; overflow: hidden; }
+        /* NOVO: Favorite Button */
+        .favorite-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 45px;
+            height: 45px;
+            background: white;
+            border: none;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            z-index: 10;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+            transition: 0.3s;
+        }
+        
+        .favorite-btn:hover {
+            transform: scale(1.1);
+        }
+        
+        .favorite-btn i {
+            font-size: 24px;
+            color: var(--text-muted);
+            transition: 0.3s;
+        }
+        
+        .favorite-btn.active i {
+            color: #EF4444;
+        }
+        
+        /* NOVO: Compare Checkbox */
+        .compare-checkbox {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            z-index: 10;
+        }
+        
+        .compare-checkbox input[type="checkbox"] {
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+        }
+        
+        .portal-img-area { position: relative; height: 100%; min-height: 280px; overflow: hidden; cursor: pointer; }
         .portal-img-area img { width: 100%; height: 100%; object-fit: cover; transition: 1.2s; }
         .portal-card:hover .portal-img-area img { transform: scale(1.1); }
         .portal-badge { position: absolute; top: 20px; left: 20px; background: var(--primary); color: white; padding: 6px 12px; border-radius: 6px; font-size: 10px; font-weight: 800; z-index: 10; }
@@ -125,11 +330,156 @@
         .portal-footer { display: flex; justify-content: space-between; align-items: center; border-top: 1px solid #f1f5f9; padding-top: 25px; }
         .price-label { font-size: 32px; font-weight: 800; color: var(--primary); letter-spacing: -1px; }
 
+        /* NOVO: Image Gallery Modal */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.95);
+            z-index: 3000;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal.active {
+            display: flex;
+        }
+        
+        .modal-content {
+            max-width: 90%;
+            max-height: 90%;
+            position: relative;
+        }
+        
+        .modal-image {
+            max-width: 100%;
+            max-height: 80vh;
+            border-radius: 12px;
+        }
+        
+        .modal-close {
+            position: absolute;
+            top: -50px;
+            right: 0;
+            background: white;
+            border: none;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-nav {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: white;
+            border: none;
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 24px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .modal-prev { left: 20px; }
+        .modal-next { right: 20px; }
+        
+        .modal-thumbnails {
+            display: flex;
+            gap: 10px;
+            margin-top: 20px;
+            justify-content: center;
+        }
+        
+        .modal-thumb {
+            width: 80px;
+            height: 60px;
+            object-fit: cover;
+            border-radius: 8px;
+            cursor: pointer;
+            opacity: 0.5;
+            transition: 0.3s;
+            border: 2px solid transparent;
+        }
+        
+        .modal-thumb.active, .modal-thumb:hover {
+            opacity: 1;
+            border-color: var(--accent);
+        }
+
+        /* NOVO: Contact Modal */
+        .contact-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            z-index: 3000;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+        }
+        
+        .contact-modal.active {
+            display: flex;
+        }
+        
+        .contact-modal-content {
+            background: white;
+            border-radius: 24px;
+            padding: 50px;
+            max-width: 600px;
+            width: 100%;
+            position: relative;
+        }
+        
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+            margin-top: 30px;
+        }
+        
+        .contact-form input,
+        .contact-form textarea {
+            width: 100%;
+            padding: 15px 20px;
+            border: 1.5px solid var(--border-color);
+            border-radius: 12px;
+            font-family: inherit;
+            font-size: 15px;
+            transition: 0.3s;
+        }
+        
+        .contact-form input:focus,
+        .contact-form textarea:focus {
+            border-color: var(--accent);
+            outline: none;
+        }
+        
+        .contact-form textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
         /* 7. METODOLOGIA
         ======================================================================== */
         .meto-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 25px; margin-top: 80px; }
         .meto-card { background: white; padding: 50px 35px; border-radius: 24px; text-align: center; border: 1px solid var(--border-color); transition: 0.4s; }
-        .meto-card:hover { background: var(--primary); color: white; }
+        .meto-card:hover { background: var(--primary); color: white; transform: translateY(-5px); }
         .meto-icon { width: 70px; height: 70px; background: var(--accent-soft); border-radius: 20px; display: flex; align-items: center; justify-content: center; margin: 0 auto 30px; font-size: 32px; color: var(--accent); }
         .meto-card:hover .meto-icon { background: rgba(255,255,255,0.1); color: white; }
         .meto-card p { font-size: 14px; transition: 0.3s; }
@@ -152,7 +502,7 @@
         ======================================================================== */
         .faq-grid { max-width: 900px; margin: 80px auto 0; }
         .faq-card { background: white; border-radius: 20px; border: 1px solid var(--border-color); margin-bottom: 15px; transition: var(--transition); }
-        .faq-header { padding: 25px 35px; width: 100%; display: flex; justify-content: space-between; align-items: center; cursor: pointer; background: none; border: none; font-family: inherit; font-size: 18px; font-weight: 700; text-align: left; }
+        .faq-header { padding: 25px 35px; width: 100%; display: flex; justify-content: space-between; align-items: center; cursor: pointer; background: none; border: none; font-family: inherit; font-size: 18px; font-weight: 700; text-align: left; color: var(--text-main); }
         .faq-body { padding: 0 35px; max-height: 0; overflow: hidden; transition: 0.5s; color: var(--text-muted); font-size: 15px; }
         .faq-card.active { border-color: var(--accent); box-shadow: var(--shadow-sm); }
         .faq-card.active .faq-body { padding-bottom: 30px; max-height: 400px; }
@@ -176,19 +526,77 @@
         .footer-col h4 { color: white; font-size: 15px; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 35px; }
         .footer-links { list-style: none; }
         .footer-links li { margin-bottom: 18px; }
-        .footer-links a { color: rgba(255,255,255,0.5); font-size: 15px; transition: 0.3s; }
+        .footer-links a { color: rgba(255,255,255,0.5); font-size: 15px; transition: 0.3s; text-decoration: none; }
         .footer-links a:hover { color: var(--accent); padding-left: 10px; }
         
         .social-row { display: flex; gap: 15px; margin-top: 40px; }
-        .social-item { width: 45px; height: 45px; border-radius: 12px; background: rgba(255,255,255,0.05); display: flex; align-items: center; justify-content: center; font-size: 22px; color: white; transition: 0.4s; border: 1px solid rgba(255,255,255,0.1); }
+        .social-item { width: 45px; height: 45px; border-radius: 12px; background: rgba(255,255,255,0.05); display: flex; align-items: center; justify-content: center; font-size: 22px; color: white; transition: 0.4s; border: 1px solid rgba(255,255,255,0.1); text-decoration: none; }
         .social-item:hover { background: var(--accent); transform: translateY(-5px); border-color: var(--accent); }
 
         .footer-bottom { padding-top: 50px; display: flex; justify-content: space-between; align-items: center; color: rgba(255,255,255,0.3); font-size: 13px; }
 
         /* 12. WHATSAPP & MOBILE ELEMENTS
         ======================================================================== */
-        .whatsapp-float { position: fixed; bottom: 40px; right: 40px; width: 70px; height: 70px; background: #25D366; color: white; border-radius: 20px; display: flex; align-items: center; justify-content: center; font-size: 40px; z-index: 3000; box-shadow: 0 15px 30px rgba(37, 211, 102, 0.3); transition: 0.4s; }
+        .whatsapp-float { position: fixed; bottom: 40px; right: 40px; width: 70px; height: 70px; background: #25D366; color: white; border-radius: 20px; display: flex; align-items: center; justify-content: center; font-size: 40px; z-index: 3000; box-shadow: 0 15px 30px rgba(37, 211, 102, 0.3); transition: 0.4s; text-decoration: none; }
         .whatsapp-float:hover { transform: scale(1.1) rotate(5deg); }
+
+        /* NOVO: Scroll to Top Button */
+        .scroll-top {
+            position: fixed;
+            bottom: 130px;
+            right: 40px;
+            width: 50px;
+            height: 50px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            cursor: pointer;
+            opacity: 0;
+            pointer-events: none;
+            transition: 0.3s;
+            z-index: 2999;
+        }
+        
+        .scroll-top.visible {
+            opacity: 1;
+            pointer-events: all;
+        }
+        
+        .scroll-top:hover {
+            background: var(--accent);
+            transform: translateY(-5px);
+        }
+
+        /* NOVO: Toast Notification */
+        .toast {
+            position: fixed;
+            bottom: 30px;
+            left: 50%;
+            transform: translateX(-50%) translateY(100px);
+            background: var(--primary);
+            color: white;
+            padding: 15px 30px;
+            border-radius: 12px;
+            box-shadow: var(--shadow-lg);
+            z-index: 4000;
+            transition: transform 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        
+        .toast.show {
+            transform: translateX(-50%) translateY(0);
+        }
+        
+        .toast.success {
+            background: var(--success);
+        }
 
         /* ========================================================================
            RESPONSIVIDADE E CORREÇÕES MOBILE
@@ -225,21 +633,20 @@
             .simulator { padding: 40px 20px; }
             .about-img-box::before { display: none; }
             
-            /* CORREÇÃO DOS CARDS DE IMÓVEIS (SOLICITADA) */
+            /* CORREÇÃO DOS CARDS DE IMÓVEIS */
             .portal-card { 
-                grid-template-columns: 1fr; /* Card em coluna única */
+                grid-template-columns: 1fr;
             }
             .portal-info {
-                padding: 25px 20px; /* Reduz padding lateral */
+                padding: 25px 20px;
             }
             .portal-img-area {
-                min-height: 220px; /* Altura controlada da imagem */
+                min-height: 220px;
             }
             .portal-stats {
-                gap: 15px; /* Menor espaço entre ícones */
+                gap: 15px;
             }
             
-            /* Footer do Card: Preço em cima, Botão embaixo ocupando 100% */
             .portal-footer {
                 flex-direction: column;
                 align-items: flex-start;
@@ -254,16 +661,116 @@
                 font-size: 28px;
             }
             .portal-footer .btn-outline {
-                width: 100%; /* Botão full width */
+                width: 100%;
                 justify-content: center;
                 margin-top: 10px;
+            }
+            
+            /* Mobile Adjustments */
+            .whatsapp-float {
+                bottom: 20px;
+                right: 20px;
+                width: 60px;
+                height: 60px;
+                font-size: 32px;
+            }
+            
+            .scroll-top {
+                bottom: 90px;
+                right: 20px;
+            }
+            
+            .compare-bar {
+                padding: 15px 0;
+            }
+            
+            .compare-content {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            .contact-modal-content {
+                padding: 30px 20px;
+            }
+            
+            .quick-filters {
+                justify-content: center;
             }
         }
     </style>
 </head>
 <body>
 
-    <a href="https://wa.me/5511999999999" class="whatsapp-float" target="_blank"><i class="ph-fill ph-whatsapp-logo"></i></a>
+    <!-- WhatsApp Float -->
+    <a href="https://wa.me/5511999999999" class="whatsapp-float" target="_blank" aria-label="Contato WhatsApp">
+        <i class="ph-fill ph-whatsapp-logo"></i>
+    </a>
+
+    <!-- Scroll to Top -->
+    <button class="scroll-top" onclick="engine.scrollToTop()" aria-label="Voltar ao topo">
+        <i class="ph-bold ph-arrow-up"></i>
+    </button>
+
+    <!-- Compare Bar -->
+    <div class="compare-bar" id="compare-bar">
+        <div class="container compare-content">
+            <div>
+                <strong id="compare-count">0</strong> imóveis selecionados para comparar
+            </div>
+            <div style="display: flex; gap: 15px;">
+                <button class="btn" onclick="engine.compareProperties()">
+                    <i class="ph ph-git-compare"></i> Comparar Agora
+                </button>
+                <button class="btn btn-outline" onclick="engine.clearCompare()">
+                    Limpar
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Image Gallery Modal -->
+    <div class="modal" id="gallery-modal">
+        <div class="modal-content">
+            <button class="modal-close" onclick="engine.closeGallery()">
+                <i class="ph-bold ph-x"></i>
+            </button>
+            <button class="modal-nav modal-prev" onclick="engine.prevImage()">
+                <i class="ph-bold ph-caret-left"></i>
+            </button>
+            <img src="" alt="Galeria" class="modal-image" id="modal-image">
+            <button class="modal-nav modal-next" onclick="engine.nextImage()">
+                <i class="ph-bold ph-caret-right"></i>
+            </button>
+            <div class="modal-thumbnails" id="modal-thumbnails"></div>
+        </div>
+    </div>
+
+    <!-- Contact Modal -->
+    <div class="contact-modal" id="contact-modal">
+        <div class="contact-modal-content">
+            <button class="modal-close" onclick="engine.closeContactModal()" style="top: 20px; right: 20px;">
+                <i class="ph-bold ph-x"></i>
+            </button>
+            <h2>Entre em Contato</h2>
+            <p style="color: var(--text-muted); margin-top: 10px;">Preencha o formulário e entraremos em contato em até 2 horas úteis.</p>
+            <form class="contact-form" onsubmit="engine.submitContact(event)">
+                <input type="text" placeholder="Seu Nome Completo" required>
+                <input type="email" placeholder="Seu E-mail" required>
+                <input type="tel" placeholder="Seu WhatsApp" required>
+                <input type="text" placeholder="Imóvel de Interesse" id="property-interest" readonly>
+                <textarea placeholder="Sua Mensagem (opcional)"></textarea>
+                <button type="submit" class="btn" style="width: 100%;">
+                    <i class="ph ph-paper-plane-tilt"></i> Enviar Mensagem
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <!-- Toast Notification -->
+    <div class="toast" id="toast">
+        <i class="ph-fill ph-check-circle"></i>
+        <span id="toast-message">Mensagem</span>
+    </div>
 
     <header id="navbar">
         <div class="container nav-content">
@@ -273,7 +780,7 @@
                 <a href="#metodologia" class="nav-link" onclick="toggleMenu()">Processo</a>
                 <a href="#sobre" class="nav-link" onclick="toggleMenu()">Bio</a>
                 <a href="#faq" class="nav-link" onclick="toggleMenu()">Ajuda</a>
-                <a href="https://wa.me/5511999999999" class="btn">Consultoria VIP</a>
+                <a href="javascript:engine.openContactModal()" class="btn">Consultoria VIP</a>
             </nav>
             <div class="mobile-toggle" onclick="toggleMenu()"><i class="ph-bold ph-list"></i></div>
         </div>
@@ -291,7 +798,7 @@
                 </div>
             </div>
             <div class="hero-image-area reveal delay-1">
-                <img src="./capa.jpg" alt="Casa Luxo">
+                <img src="./capa.jpg" alt="Casa Luxo" loading="lazy">
             </div>
         </div>
     </section>
@@ -326,6 +833,27 @@
                 </div>
                 <button class="btn" onclick="engine.filter()"><i class="ph ph-magnifying-glass"></i> Buscar</button>
             </div>
+            
+            <!-- Advanced Filters -->
+            <div class="advanced-filters" id="advanced-filters">
+                <div class="price-range-container">
+                    <label style="font-size: 11px; font-weight: 800; color: var(--text-main); text-transform: uppercase;">Faixa de Preço</label>
+                    <div class="price-range-inputs">
+                        <div class="input-group">
+                            <input type="number" id="price-min" placeholder="Preço Mínimo" oninput="engine.filter()">
+                        </div>
+                        <div class="input-group">
+                            <input type="number" id="price-max" placeholder="Preço Máximo" oninput="engine.filter()">
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="filter-toggle">
+                <button class="filter-toggle-btn" onclick="engine.toggleAdvancedFilters()">
+                    <i class="ph ph-faders"></i> <span id="filter-toggle-text">Filtros Avançados</span>
+                </button>
+            </div>
         </div>
     </div>
 
@@ -334,7 +862,7 @@
             <div class="listing-header reveal">
                 <div>
                     <h2>Curadoria Exclusiva</h2>
-                    <p id="counter">Buscando as melhores taxas de retorno...</p>
+                    <p id="counter">Carregando imóveis...</p>
                 </div>
                 <div class="input-group" style="width: 250px;">
                     <select id="sort-input" onchange="engine.sort()">
@@ -345,8 +873,19 @@
                 </div>
             </div>
 
+            <!-- Quick Filters -->
+            <div class="quick-filters reveal">
+                <button class="quick-filter-btn active" onclick="engine.quickFilter('todos')">Todos</button>
+                <button class="quick-filter-btn" onclick="engine.quickFilter('destaque')">Destaques</button>
+                <button class="quick-filter-btn" onclick="engine.quickFilter('luxo')">Alto Padrão</button>
+                <button class="quick-filter-btn" onclick="engine.quickFilter('novo')">Lançamentos</button>
+            </div>
+
             <div id="properties-list" class="reveal">
-                </div>
+                <!-- Loading skeleton -->
+                <div class="skeleton-card" style="height: 280px;"></div>
+                <div class="skeleton-card" style="height: 280px;"></div>
+            </div>
         </div>
     </section>
 
@@ -395,7 +934,7 @@
                             <input type="number" id="sim-val" value="750000" oninput="engine.simulate()">
                             <label style="font-size: 11px; font-weight: 800; opacity: 0.6;">ENTRADA (MÍN. 20%)</label>
                             <input type="number" id="sim-ent" value="150000" oninput="engine.simulate()">
-                            <button class="btn" style="width: 100%;" onclick="window.open('https://wa.me/5511999999999')">Aprovar meu Crédito Agora</button>
+                            <button class="btn" style="width: 100%;" onclick="engine.openContactModal('Aprovar Crédito')">Aprovar meu Crédito Agora</button>
                         </div>
                     </div>
                     <div style="text-align: center;">
@@ -412,7 +951,7 @@
         <div class="container">
             <div class="about-grid reveal">
                 <div class="about-img-box">
-                    <img src="./corretor.jpg" alt="Corretor Bruno">
+                    <img src="./corretor.jpg" alt="Corretor Bruno" loading="lazy">
                 </div>
                 <div>
                     <span class="badge badge-accent">Consultor Estratégico</span>
@@ -468,9 +1007,9 @@
                     <a href="#" class="footer-logo">Bruno<span>Almeida</span></a>
                     <p style="color: rgba(255,255,255,0.4); font-size: 14px; max-width: 300px;">Referência em inteligência imobiliária e consultoria de alto padrão em São Paulo e região.</p>
                     <div class="social-row">
-                        <a href="#" class="social-item"><i class="ph-fill ph-instagram-logo"></i></a>
-                        <a href="#" class="social-item"><i class="ph-fill ph-linkedin-logo"></i></a>
-                        <a href="#" class="social-item"><i class="ph-fill ph-facebook-logo"></i></a>
+                        <a href="#" class="social-item" aria-label="Instagram"><i class="ph-fill ph-instagram-logo"></i></a>
+                        <a href="#" class="social-item" aria-label="LinkedIn"><i class="ph-fill ph-linkedin-logo"></i></a>
+                        <a href="#" class="social-item" aria-label="Facebook"><i class="ph-fill ph-facebook-logo"></i></a>
                     </div>
                 </div>
                 <div class="footer-col">
@@ -504,63 +1043,240 @@
     </footer>
 
     <script>
+        // Enhanced Data Structure with Multiple Images
         const PROPERTIES = [
-            { id: 1, title: "Apartamento Garden - Vila Mariana", loc: "Vila Mariana, SP", type: "Apartamento", intent: "venda", price: 780000, beds: 2, baths: 2, area: 95, img: "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?q=80&w=800", condo: 550, status: "Destaque" },
-            { id: 2, title: "Residência Alphaville - Vista Verde", loc: "Alphaville, Barueri", type: "Casa", intent: "venda", price: 2450000, beds: 4, baths: 5, area: 380, img: "./imovel2.jpg", condo: 1200, status: "Exclusivo" },
-            { id: 3, title: "Loft Industrial Pinheiros", loc: "Pinheiros, SP", type: "Apartamento", intent: "aluguel", price: 5500, beds: 1, baths: 1, area: 65, img: "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?q=80&w=800", condo: 450, status: "Mobiliado" },
-            { id: 4, title: "Cobertura Duplex Moema", loc: "Moema, SP", type: "Apartamento", intent: "venda", price: 4200000, beds: 4, baths: 6, area: 320, img: "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=800", condo: 2100, status: "Única" },
-            { id: 5, title: "Studio Design Brooklin", loc: "Brooklin, SP", type: "Apartamento", intent: "aluguel", price: 3200, beds: 1, baths: 1, area: 42, img: "./imovel5.jpg", condo: 320, status: "Novo" },
-            { id: 6, title: "Casa de Vila Tradicional", loc: "Vila Madalena, SP", type: "Casa", intent: "venda", price: 1100000, beds: 3, baths: 3, area: 160, img: "https://images.unsplash.com/photo-1568605114967-8130f3a36994?q=80&w=800", condo: 0, status: "Reformada" }
+            { 
+                id: 1, 
+                title: "Apartamento Garden - Vila Mariana", 
+                loc: "Vila Mariana, SP", 
+                type: "Apartamento", 
+                intent: "venda", 
+                price: 780000, 
+                beds: 2, 
+                baths: 2, 
+                area: 95, 
+                images: [
+                    "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?q=80&w=800",
+                    "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?q=80&w=800",
+                    "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=800"
+                ],
+                condo: 550, 
+                status: "Destaque",
+                category: "destaque"
+            },
+            { 
+                id: 2, 
+                title: "Residência Alphaville - Vista Verde", 
+                loc: "Alphaville, Barueri", 
+                type: "Casa", 
+                intent: "venda", 
+                price: 2450000, 
+                beds: 4, 
+                baths: 5, 
+                area: 380, 
+                images: [
+                    "./imovel2.jpg",
+                    "https://images.unsplash.com/photo-1568605114967-8130f3a36994?q=80&w=800"
+                ],
+                condo: 1200, 
+                status: "Exclusivo",
+                category: "luxo"
+            },
+            { 
+                id: 3, 
+                title: "Loft Industrial Pinheiros", 
+                loc: "Pinheiros, SP", 
+                type: "Apartamento", 
+                intent: "aluguel", 
+                price: 5500, 
+                beds: 1, 
+                baths: 1, 
+                area: 65, 
+                images: [
+                    "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?q=80&w=800"
+                ],
+                condo: 450, 
+                status: "Mobiliado",
+                category: "novo"
+            },
+            { 
+                id: 4, 
+                title: "Cobertura Duplex Moema", 
+                loc: "Moema, SP", 
+                type: "Apartamento", 
+                intent: "venda", 
+                price: 4200000, 
+                beds: 4, 
+                baths: 6, 
+                area: 320, 
+                images: [
+                    "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=800",
+                    "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?q=80&w=800"
+                ],
+                condo: 2100, 
+                status: "Única",
+                category: "luxo"
+            },
+            { 
+                id: 5, 
+                title: "Studio Design Brooklin", 
+                loc: "Brooklin, SP", 
+                type: "Apartamento", 
+                intent: "aluguel", 
+                price: 3200, 
+                beds: 1, 
+                baths: 1, 
+                area: 42, 
+                images: [
+                    "./imovel5.jpg"
+                ],
+                condo: 320, 
+                status: "Novo",
+                category: "novo"
+            },
+            { 
+                id: 6, 
+                title: "Casa de Vila Tradicional", 
+                loc: "Vila Madalena, SP", 
+                type: "Casa", 
+                intent: "venda", 
+                price: 1100000, 
+                beds: 3, 
+                baths: 3, 
+                area: 160, 
+                images: [
+                    "https://images.unsplash.com/photo-1568605114967-8130f3a36994?q=80&w=800"
+                ],
+                condo: 0, 
+                status: "Reformada",
+                category: "destaque"
+            }
         ];
 
+        // Main Engine - Enhanced Version
         const engine = {
             intent: 'venda',
+            results: [],
+            favorites: [],
+            compareList: [],
+            currentGallery: [],
+            currentImageIndex: 0,
+            currentQuickFilter: 'todos',
+            
             init() {
+                this.loadFavorites();
                 this.bindEvents();
                 this.filter();
                 this.scrollObserve();
                 this.simulate();
+                this.initScrollButton();
             },
+            
             bindEvents() {
+                // Scroll effects
                 window.addEventListener('scroll', () => {
                     document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 50);
                 });
+                
+                // Search tabs
                 document.querySelectorAll('.search-tab').forEach(tab => {
                     tab.addEventListener('click', () => {
                         document.querySelectorAll('.search-tab').forEach(t => t.classList.remove('active'));
                         tab.classList.add('active');
                         this.intent = tab.dataset.intent;
                         this.filter();
+                        this.trackEvent('search_tab_change', { intent: this.intent });
                     });
                 });
+                
+                // Close modals on ESC
+                document.addEventListener('keydown', (e) => {
+                    if (e.key === 'Escape') {
+                        this.closeGallery();
+                        this.closeContactModal();
+                    }
+                });
             },
+            
+            // Advanced Filters Toggle
+            toggleAdvancedFilters() {
+                const filters = document.getElementById('advanced-filters');
+                const text = document.getElementById('filter-toggle-text');
+                filters.classList.toggle('active');
+                text.textContent = filters.classList.contains('active') ? 'Ocultar Filtros' : 'Filtros Avançados';
+            },
+            
+            // Enhanced Filter with Price Range
             filter() {
                 const loc = document.getElementById('loc-input').value.toLowerCase();
                 const type = document.getElementById('type-input').value;
                 const beds = parseInt(document.getElementById('beds-input').value);
+                const minPrice = parseFloat(document.getElementById('price-min')?.value) || 0;
+                const maxPrice = parseFloat(document.getElementById('price-max')?.value) || Infinity;
+                
                 this.results = PROPERTIES.filter(p => {
-                    return p.intent === this.intent && 
-                           (p.loc.toLowerCase().includes(loc) || p.title.toLowerCase().includes(loc)) &&
-                           (type === 'todos' || p.type === type) && p.beds >= beds;
+                    const matchesIntent = p.intent === this.intent;
+                    const matchesLocation = p.loc.toLowerCase().includes(loc) || p.title.toLowerCase().includes(loc);
+                    const matchesType = type === 'todos' || p.type === type;
+                    const matchesBeds = p.beds >= beds;
+                    const matchesPrice = p.price >= minPrice && p.price <= maxPrice;
+                    const matchesQuickFilter = this.currentQuickFilter === 'todos' || p.category === this.currentQuickFilter;
+                    
+                    return matchesIntent && matchesLocation && matchesType && matchesBeds && matchesPrice && matchesQuickFilter;
                 });
+                
                 this.sort();
+                this.trackEvent('properties_filtered', { count: this.results.length });
             },
+            
+            // Quick Filter
+            quickFilter(category) {
+                this.currentQuickFilter = category;
+                
+                // Update button states
+                document.querySelectorAll('.quick-filter-btn').forEach(btn => {
+                    btn.classList.remove('active');
+                });
+                event.target.classList.add('active');
+                
+                this.filter();
+            },
+            
+            // Sort
             sort() {
                 const c = document.getElementById('sort-input').value;
                 if (c === 'menor') this.results.sort((a,b) => a.price - b.price);
                 if (c === 'maior') this.results.sort((a,b) => b.price - a.price);
                 this.render();
             },
+            
+            // Render Properties
             render() {
                 const list = document.getElementById('properties-list');
                 list.innerHTML = '';
+                
+                if (this.results.length === 0) {
+                    list.innerHTML = '<p style="text-align: center; padding: 60px 0; color: var(--text-muted);">Nenhum imóvel encontrado com os filtros aplicados.</p>';
+                    document.getElementById('counter').innerText = '0 imóveis encontrados';
+                    return;
+                }
+                
                 this.results.forEach(p => {
                     const priceF = p.price.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
+                    const isFavorite = this.favorites.includes(p.id);
+                    const isCompared = this.compareList.includes(p.id);
+                    
                     list.innerHTML += `
-                        <div class="portal-card" onclick="window.open('https://wa.me/5511999999999?text=Interesse no imóvel ${p.title}')">
-                            <div class="portal-img-area">
+                        <div class="portal-card">
+                            <div class="portal-img-area" onclick="engine.openGallery(${p.id})">
                                 <span class="portal-badge">${p.status}</span>
-                                <img src="${p.img}" alt="${p.title}">
+                                <button class="favorite-btn ${isFavorite ? 'active' : ''}" onclick="event.stopPropagation(); engine.toggleFavorite(${p.id})">
+                                    <i class="ph-fill ph-heart"></i>
+                                </button>
+                                <div class="compare-checkbox">
+                                    <input type="checkbox" ${isCompared ? 'checked' : ''} onclick="event.stopPropagation(); engine.toggleCompare(${p.id})" id="compare-${p.id}">
+                                </div>
+                                <img src="${p.images[0]}" alt="${p.title}" loading="lazy">
                             </div>
                             <div class="portal-info">
                                 <div>
@@ -573,14 +1289,179 @@
                                     </div>
                                 </div>
                                 <div class="portal-footer">
-                                    <div><span class="price-label">${priceF}${this.intent === 'aluguel' ? '/mês' : ''}</span><br><span class="condo-label" style="font-size:12px; color:#64748B;">Cond: R$ ${p.condo}</span></div>
-                                    <button class="btn btn-outline" style="padding:12px 30px; font-size: 13px;">Ver Detalhes</button>
+                                    <div>
+                                        <span class="price-label">${priceF}${this.intent === 'aluguel' ? '/mês' : ''}</span><br>
+                                        <span class="condo-label" style="font-size:12px; color:#64748B;">Cond: R$ ${p.condo}</span>
+                                    </div>
+                                    <button class="btn btn-outline" style="padding:12px 30px; font-size: 13px;" onclick="engine.openContactModal('${p.title}')">Ver Detalhes</button>
                                 </div>
                             </div>
                         </div>`;
                 });
+                
                 document.getElementById('counter').innerText = `${this.results.length} oportunidades encontradas`;
+                this.updateCompareBar();
             },
+            
+            // Favorites Management
+            toggleFavorite(id) {
+                const index = this.favorites.indexOf(id);
+                if (index > -1) {
+                    this.favorites.splice(index, 1);
+                    this.showToast('Removido dos favoritos');
+                } else {
+                    this.favorites.push(id);
+                    this.showToast('Adicionado aos favoritos', 'success');
+                }
+                this.saveFavorites();
+                this.render();
+                this.trackEvent('favorite_toggled', { propertyId: id, action: index > -1 ? 'removed' : 'added' });
+            },
+            
+            loadFavorites() {
+                const saved = localStorage.getItem('bruno_favorites');
+                this.favorites = saved ? JSON.parse(saved) : [];
+            },
+            
+            saveFavorites() {
+                localStorage.setItem('bruno_favorites', JSON.stringify(this.favorites));
+            },
+            
+            // Compare Management
+            toggleCompare(id) {
+                const index = this.compareList.indexOf(id);
+                if (index > -1) {
+                    this.compareList.splice(index, 1);
+                } else {
+                    if (this.compareList.length >= 3) {
+                        this.showToast('Você pode comparar no máximo 3 imóveis');
+                        document.getElementById(`compare-${id}`).checked = false;
+                        return;
+                    }
+                    this.compareList.push(id);
+                }
+                this.updateCompareBar();
+                this.trackEvent('compare_toggled', { propertyId: id });
+            },
+            
+            updateCompareBar() {
+                const bar = document.getElementById('compare-bar');
+                const count = document.getElementById('compare-count');
+                count.textContent = this.compareList.length;
+                
+                if (this.compareList.length > 0) {
+                    bar.classList.add('active');
+                } else {
+                    bar.classList.remove('active');
+                }
+            },
+            
+            compareProperties() {
+                if (this.compareList.length < 2) {
+                    this.showToast('Selecione pelo menos 2 imóveis para comparar');
+                    return;
+                }
+                
+                // In a real implementation, this would open a comparison modal
+                const properties = this.compareList.map(id => PROPERTIES.find(p => p.id === id));
+                console.log('Comparing properties:', properties);
+                this.showToast('Funcionalidade de comparação em desenvolvimento', 'success');
+                this.trackEvent('properties_compared', { ids: this.compareList });
+            },
+            
+            clearCompare() {
+                this.compareList = [];
+                this.updateCompareBar();
+                this.render();
+            },
+            
+            // Gallery Management
+            openGallery(id) {
+                const property = PROPERTIES.find(p => p.id === id);
+                if (!property) return;
+                
+                this.currentGallery = property.images;
+                this.currentImageIndex = 0;
+                
+                const modal = document.getElementById('gallery-modal');
+                const img = document.getElementById('modal-image');
+                const thumbs = document.getElementById('modal-thumbnails');
+                
+                img.src = this.currentGallery[0];
+                
+                // Create thumbnails
+                thumbs.innerHTML = '';
+                this.currentGallery.forEach((imgSrc, i) => {
+                    const thumb = document.createElement('img');
+                    thumb.src = imgSrc;
+                    thumb.className = `modal-thumb ${i === 0 ? 'active' : ''}`;
+                    thumb.onclick = () => this.jumpToImage(i);
+                    thumbs.appendChild(thumb);
+                });
+                
+                modal.classList.add('active');
+                this.trackEvent('gallery_opened', { propertyId: id });
+            },
+            
+            closeGallery() {
+                document.getElementById('gallery-modal').classList.remove('active');
+            },
+            
+            nextImage() {
+                this.currentImageIndex = (this.currentImageIndex + 1) % this.currentGallery.length;
+                this.updateGalleryImage();
+            },
+            
+            prevImage() {
+                this.currentImageIndex = (this.currentImageIndex - 1 + this.currentGallery.length) % this.currentGallery.length;
+                this.updateGalleryImage();
+            },
+            
+            jumpToImage(index) {
+                this.currentImageIndex = index;
+                this.updateGalleryImage();
+            },
+            
+            updateGalleryImage() {
+                const img = document.getElementById('modal-image');
+                img.src = this.currentGallery[this.currentImageIndex];
+                
+                // Update thumbnails
+                document.querySelectorAll('.modal-thumb').forEach((thumb, i) => {
+                    thumb.classList.toggle('active', i === this.currentImageIndex);
+                });
+            },
+            
+            // Contact Modal
+            openContactModal(propertyTitle = '') {
+                const modal = document.getElementById('contact-modal');
+                const input = document.getElementById('property-interest');
+                if (input) input.value = propertyTitle;
+                modal.classList.add('active');
+                this.trackEvent('contact_modal_opened', { property: propertyTitle });
+            },
+            
+            closeContactModal() {
+                document.getElementById('contact-modal').classList.remove('active');
+            },
+            
+            submitContact(event) {
+                event.preventDefault();
+                
+                // In real implementation, send data to backend
+                this.showToast('Mensagem enviada com sucesso! Retornaremos em breve.', 'success');
+                this.closeContactModal();
+                event.target.reset();
+                
+                this.trackEvent('contact_form_submitted');
+                
+                // Redirect to WhatsApp with message
+                setTimeout(() => {
+                    window.open('https://wa.me/5511999999999?text=Olá! Enviei uma mensagem pelo site.', '_blank');
+                }, 1000);
+            },
+            
+            // Simulator
             simulate() {
                 const total = parseFloat(document.getElementById('sim-val').value) || 0;
                 const ent = parseFloat(document.getElementById('sim-ent').value) || 0;
@@ -589,19 +1470,80 @@
                 const val = (saldo > 0) ? (saldo * taxa) / (1 - Math.pow(1 + taxa, -p)) : 0;
                 document.getElementById('sim-res').innerText = val.toLocaleString('pt-BR', { style: 'currency', currency: 'BRL' });
             },
+            
+            // FAQ
             toggleFaq(card) {
-                card.classList.toggle('active');
+                const wasActive = card.classList.contains('active');
+                
+                // Close all
+                document.querySelectorAll('.faq-card').forEach(c => c.classList.remove('active'));
+                
+                // Open clicked if it wasn't active
+                if (!wasActive) {
+                    card.classList.add('active');
+                }
             },
+            
+            // Scroll Observer
             scrollObserve() {
                 const obs = new IntersectionObserver((entries) => {
-                    entries.forEach(e => { if(e.isIntersecting) e.target.classList.add('active'); });
+                    entries.forEach(e => { 
+                        if(e.isIntersecting) e.target.classList.add('active'); 
+                    });
                 }, { threshold: 0.1 });
+                
                 document.querySelectorAll('.reveal').forEach(el => obs.observe(el));
+            },
+            
+            // Scroll to Top
+            initScrollButton() {
+                window.addEventListener('scroll', () => {
+                    const btn = document.querySelector('.scroll-top');
+                    btn.classList.toggle('visible', window.scrollY > 500);
+                });
+            },
+            
+            scrollToTop() {
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+                this.trackEvent('scroll_to_top');
+            },
+            
+            // Toast Notifications
+            showToast(message, type = 'default') {
+                const toast = document.getElementById('toast');
+                const messageEl = document.getElementById('toast-message');
+                
+                messageEl.textContent = message;
+                toast.className = `toast ${type} show`;
+                
+                setTimeout(() => {
+                    toast.classList.remove('show');
+                }, 3000);
+            },
+            
+            // Analytics (Ready for implementation)
+            trackEvent(eventName, data = {}) {
+                console.log('Track Event:', eventName, data);
+                // Implement Google Analytics, Meta Pixel, etc.
+                // gtag('event', eventName, data);
             }
         };
 
-        function toggleMenu() { document.querySelector('.nav-links').classList.toggle('active'); }
-        window.onload = () => engine.init();
+        // Toggle Mobile Menu
+        function toggleMenu() { 
+            document.querySelector('.nav-links').classList.toggle('active'); 
+        }
+
+        // Initialize on Load
+        window.onload = () => {
+            engine.init();
+            console.log('🚀 Enhanced Portal v12 loaded successfully');
+        };
+        
+        // Service Worker for PWA (Optional)
+        if ('serviceWorker' in navigator) {
+            // navigator.serviceWorker.register('/sw.js');
+        }
     </script>
 </body>
 </html>
