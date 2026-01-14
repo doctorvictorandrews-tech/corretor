@@ -1062,126 +1062,168 @@
 
     <script>
         // Enhanced Data Structure with Multiple Images
-        const PROPERTIES = [
-            { 
-                id: 1, 
-                title: "Apartamento Garden - Vila Mariana", 
-                loc: "Vila Mariana, SP", 
-                type: "Apartamento", 
-                intent: "venda", 
-                price: 780000, 
-                beds: 2, 
-                baths: 2, 
-                area: 95, 
-                images: [
-                    "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?q=80&w=800",
-                    "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?q=80&w=800",
-                    "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=800",
-                    "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?q=80&w=800",
-                    "https://images.unsplash.com/photo-1574643156929-51fa098b0394?q=80&w=800"
-                ],
-                condo: 550, 
-                status: "Destaque",
-                category: "destaque"
-            },
-            { 
-                id: 2, 
-                title: "Residência Alphaville - Vista Verde", 
-                loc: "Alphaville, Barueri", 
-                type: "Casa", 
-                intent: "venda", 
-                price: 2450000, 
-                beds: 4, 
-                baths: 5, 
-                area: 380, 
-                images: [
-                    "./imovel2.jpg",
-                    "https://images.unsplash.com/photo-1568605114967-8130f3a36994?q=80&w=800",
-                    "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=800",
-                    "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=800"
-                ],
-                condo: 1200, 
-                status: "Exclusivo",
-                category: "luxo"
-            },
-            { 
-                id: 3, 
-                title: "Loft Industrial Pinheiros", 
-                loc: "Pinheiros, SP", 
-                type: "Apartamento", 
-                intent: "aluguel", 
-                price: 5500, 
-                beds: 1, 
-                baths: 1, 
-                area: 65, 
-                images: [
-                    "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?q=80&w=800",
-                    "https://images.unsplash.com/photo-1493809842364-78817add7ffb?q=80&w=800",
-                    "https://images.unsplash.com/photo-1556912167-f556f1f39faa?q=80&w=800"
-                ],
-                condo: 450, 
-                status: "Mobiliado",
-                category: "novo"
-            },
-            { 
-                id: 4, 
-                title: "Cobertura Duplex Moema", 
-                loc: "Moema, SP", 
-                type: "Apartamento", 
-                intent: "venda", 
-                price: 4200000, 
-                beds: 4, 
-                baths: 6, 
-                area: 320, 
-                images: [
-                    "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=800",
-                    "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?q=80&w=800",
-                    "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=800",
-                    "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?q=80&w=800"
-                ],
-                condo: 2100, 
-                status: "Única",
-                category: "luxo"
-            },
-            { 
-                id: 5, 
-                title: "Studio Design Brooklin", 
-                loc: "Brooklin, SP", 
-                type: "Apartamento", 
-                intent: "aluguel", 
-                price: 3200, 
-                beds: 1, 
-                baths: 1, 
-                area: 42, 
-                images: [
-                    "./imovel5.jpg",
-                    "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?q=80&w=800",
-                    "https://images.unsplash.com/photo-1574643156929-51fa098b0394?q=80&w=800"
-                ],
-                condo: 320, 
-                status: "Novo",
-                category: "novo"
-            },
-            { 
-                id: 6, 
-                title: "Casa de Vila Tradicional", 
-                loc: "Vila Madalena, SP", 
-                type: "Casa", 
-                intent: "venda", 
-                price: 1100000, 
-                beds: 3, 
-                baths: 3, 
-                area: 160, 
-                images: [
-                    "https://images.unsplash.com/photo-1568605114967-8130f3a36994?q=80&w=800",
-                    "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=800",
-                    "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=800"
-                ],
-                condo: 0, 
-                status: "Reformada",
-                category: "destaque"
+        // ========================================================================
+        // CONFIGURAÇÃO DO GITHUB - SUAS INFORMAÇÕES
+        // ========================================================================
+        const GITHUB_CONFIG = {
+            username: 'doctorvictorandrews-tech',  // ✅ Seu usuário do GitHub
+            repo: 'corretor',                       // ✅ Nome do seu repositório
+            branch: 'main'                          // ✅ Branch principal
+        };
+        
+        // URL do seu site: https://corretor-9bo.pages.dev/
+        // URL do painel admin: https://corretor-9bo.pages.dev/admin.html
+        
+        // Array que será preenchido automaticamente do GitHub
+        let PROPERTIES = [];
+        
+        // Função para carregar imóveis do GitHub
+        async function loadPropertiesFromGitHub() {
+            try {
+                const url = `https://raw.githubusercontent.com/${GITHUB_CONFIG.username}/${GITHUB_CONFIG.repo}/${GITHUB_CONFIG.branch}/data/properties.json`;
+                
+                console.log('🔄 Carregando imóveis do GitHub...');
+                
+                const response = await fetch(url);
+                
+                if (response.ok) {
+                    PROPERTIES = await response.json();
+                    console.log(`✅ ${PROPERTIES.length} imóveis carregados com sucesso!`);
+                    
+                    // Recarregar a listagem se o engine já estiver inicializado
+                    if (typeof engine !== 'undefined' && engine.results) {
+                        engine.filter();
+                        engine.updateStats();
+                    }
+                    
+                    return true;
+                } else if (response.status === 404) {
+                    console.warn('⚠️ Arquivo properties.json não encontrado. Usando dados de exemplo.');
+                    // Manter alguns imóveis de exemplo para demonstração
+                    PROPERTIES = getDemoProperties();
+                    return false;
+                } else {
+                    throw new Error(`HTTP ${response.status}: ${response.statusText}`);
+                }
+            } catch (error) {
+                console.error('❌ Erro ao carregar imóveis do GitHub:', error);
+                console.log('📝 Usando imóveis de demonstração...');
+                PROPERTIES = getDemoProperties();
+                return false;
             }
-        ];
+        }
+        
+        // Imóveis de demonstração (usados quando o GitHub ainda não está configurado)
+        function getDemoProperties() {
+            return [
+                { 
+                    id: 1, 
+                    title: "Apartamento Garden - Vila Mariana", 
+                    loc: "Vila Mariana, SP", 
+                    type: "Apartamento", 
+                    intent: "venda", 
+                    price: 780000, 
+                    beds: 2, 
+                    baths: 2, 
+                    area: 95, 
+                    images: [
+                        "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?q=80&w=800",
+                        "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?q=80&w=800",
+                        "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=800"
+                    ],
+                    condo: 550, 
+                    status: "Destaque",
+                    category: "destaque"
+                },
+                { 
+                    id: 2, 
+                    title: "Residência Alphaville - Vista Verde", 
+                    loc: "Alphaville, Barueri", 
+                    type: "Casa", 
+                    intent: "venda", 
+                    price: 2450000, 
+                    beds: 4, 
+                    baths: 5, 
+                    area: 380, 
+                    images: [
+                        "./imovel2.jpg",
+                        "https://images.unsplash.com/photo-1568605114967-8130f3a36994?q=80&w=800"
+                    ],
+                    condo: 1200, 
+                    status: "Exclusivo",
+                    category: "luxo"
+                },
+                { 
+                    id: 3, 
+                    title: "Loft Industrial Pinheiros", 
+                    loc: "Pinheiros, SP", 
+                    type: "Apartamento", 
+                    intent: "aluguel", 
+                    price: 5500, 
+                    beds: 1, 
+                    baths: 1, 
+                    area: 65, 
+                    images: [
+                        "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?q=80&w=800"
+                    ],
+                    condo: 450, 
+                    status: "Mobiliado",
+                    category: "novo"
+                },
+                { 
+                    id: 4, 
+                    title: "Cobertura Duplex Moema", 
+                    loc: "Moema, SP", 
+                    type: "Apartamento", 
+                    intent: "venda", 
+                    price: 4200000, 
+                    beds: 4, 
+                    baths: 6, 
+                    area: 320, 
+                    images: [
+                        "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=800",
+                        "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?q=80&w=800"
+                    ],
+                    condo: 2100, 
+                    status: "Única",
+                    category: "luxo"
+                },
+                { 
+                    id: 5, 
+                    title: "Studio Design Brooklin", 
+                    loc: "Brooklin, SP", 
+                    type: "Apartamento", 
+                    intent: "aluguel", 
+                    price: 3200, 
+                    beds: 1, 
+                    baths: 1, 
+                    area: 42, 
+                    images: [
+                        "./imovel5.jpg"
+                    ],
+                    condo: 320, 
+                    status: "Novo",
+                    category: "novo"
+                },
+                { 
+                    id: 6, 
+                    title: "Casa de Vila Tradicional", 
+                    loc: "Vila Madalena, SP", 
+                    type: "Casa", 
+                    intent: "venda", 
+                    price: 1100000, 
+                    beds: 3, 
+                    baths: 3, 
+                    area: 160, 
+                    images: [
+                        "https://images.unsplash.com/photo-1568605114967-8130f3a36994?q=80&w=800"
+                    ],
+                    condo: 0, 
+                    status: "Reformada",
+                    category: "destaque"
+                }
+            ];
+        }
 
         // Main Engine - Enhanced Version
         const engine = {
@@ -1568,10 +1610,22 @@
         }
 
         // Initialize on Load
-        window.onload = () => {
+        // Initialize on Load - COM INTEGRAÇÃO GITHUB
+        window.onload = async () => {
+            // Carregar imóveis do GitHub primeiro
+            await loadPropertiesFromGitHub();
+            
+            // Inicializar o engine
             engine.init();
             console.log('🚀 Enhanced Portal v12 loaded successfully');
+            console.log(`📊 ${PROPERTIES.length} imóveis disponíveis`);
         };
+        
+        // Auto-refresh dos imóveis a cada 5 minutos (opcional)
+        setInterval(async () => {
+            console.log('🔄 Atualizando imóveis...');
+            await loadPropertiesFromGitHub();
+        }, 5 * 60 * 1000);
         
         // Service Worker for PWA (Optional)
         if ('serviceWorker' in navigator) {
