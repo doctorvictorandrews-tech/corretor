@@ -303,15 +303,33 @@
         /* NOVO: Compare Checkbox */
         .compare-checkbox {
             position: absolute;
-            top: 20px;
+            top: 70px;
             left: 20px;
             z-index: 10;
+            background: white;
+            padding: 5px;
+            border-radius: 6px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
         }
         
         .compare-checkbox input[type="checkbox"] {
             width: 24px;
             height: 24px;
             cursor: pointer;
+            accent-color: var(--accent);
+        }
+        
+        .compare-checkbox label {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            background: white;
+            padding: 8px 12px;
+            border-radius: 8px;
+            font-size: 11px;
+            font-weight: 700;
+            cursor: pointer;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
         
         .portal-img-area { position: relative; height: 100%; min-height: 280px; overflow: hidden; cursor: pointer; }
@@ -522,7 +540,7 @@
         ======================================================================== */
         footer { background: #020617; color: white; padding: 120px 0 50px; }
         .footer-main { display: grid; grid-template-columns: 2fr 1fr 1fr 1.5fr; gap: 80px; padding-bottom: 80px; border-bottom: 1px solid rgba(255,255,255,0.05); }
-        .footer-logo { font-size: 28px; font-weight: 900; margin-bottom: 30px; display: block; }
+        .footer-logo { font-size: 28px; font-weight: 900; margin-bottom: 30px; display: block; color: white; text-decoration: none; }
         .footer-col h4 { color: white; font-size: 15px; text-transform: uppercase; letter-spacing: 2px; margin-bottom: 35px; }
         .footer-links { list-style: none; }
         .footer-links li { margin-bottom: 18px; }
@@ -927,7 +945,7 @@
             <div class="simulator reveal">
                 <div class="sim-grid">
                     <div>
-                        <h2>Simulador de <br>Financiamento</h2>
+                        <h2 style="color: white;">Simulador de <br>Financiamento</h2>
                         <p style="color: rgba(255,255,255,0.6); margin: 30px 0 50px;">Tenha uma estimativa real baseada nas taxas de juros atuais dos principais bancos parceiros.</p>
                         <div class="sim-box">
                             <label style="font-size: 11px; font-weight: 800; opacity: 0.6;">VALOR DO IMÓVEL (R$)</label>
@@ -1058,7 +1076,9 @@
                 images: [
                     "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?q=80&w=800",
                     "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?q=80&w=800",
-                    "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=800"
+                    "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=800",
+                    "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?q=80&w=800",
+                    "https://images.unsplash.com/photo-1574643156929-51fa098b0394?q=80&w=800"
                 ],
                 condo: 550, 
                 status: "Destaque",
@@ -1076,7 +1096,9 @@
                 area: 380, 
                 images: [
                     "./imovel2.jpg",
-                    "https://images.unsplash.com/photo-1568605114967-8130f3a36994?q=80&w=800"
+                    "https://images.unsplash.com/photo-1568605114967-8130f3a36994?q=80&w=800",
+                    "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=800",
+                    "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=800"
                 ],
                 condo: 1200, 
                 status: "Exclusivo",
@@ -1093,7 +1115,9 @@
                 baths: 1, 
                 area: 65, 
                 images: [
-                    "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?q=80&w=800"
+                    "https://images.unsplash.com/photo-1502672260266-1c1ef2d93688?q=80&w=800",
+                    "https://images.unsplash.com/photo-1493809842364-78817add7ffb?q=80&w=800",
+                    "https://images.unsplash.com/photo-1556912167-f556f1f39faa?q=80&w=800"
                 ],
                 condo: 450, 
                 status: "Mobiliado",
@@ -1111,7 +1135,9 @@
                 area: 320, 
                 images: [
                     "https://images.unsplash.com/photo-1512917774080-9991f1c4c750?q=80&w=800",
-                    "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?q=80&w=800"
+                    "https://images.unsplash.com/photo-1522708323590-d24dbb6b0267?q=80&w=800",
+                    "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=800",
+                    "https://images.unsplash.com/photo-1600566753190-17f0baa2a6c3?q=80&w=800"
                 ],
                 condo: 2100, 
                 status: "Única",
@@ -1128,7 +1154,9 @@
                 baths: 1, 
                 area: 42, 
                 images: [
-                    "./imovel5.jpg"
+                    "./imovel5.jpg",
+                    "https://images.unsplash.com/photo-1560448204-e02f11c3d0e2?q=80&w=800",
+                    "https://images.unsplash.com/photo-1574643156929-51fa098b0394?q=80&w=800"
                 ],
                 condo: 320, 
                 status: "Novo",
@@ -1145,7 +1173,9 @@
                 baths: 3, 
                 area: 160, 
                 images: [
-                    "https://images.unsplash.com/photo-1568605114967-8130f3a36994?q=80&w=800"
+                    "https://images.unsplash.com/photo-1568605114967-8130f3a36994?q=80&w=800",
+                    "https://images.unsplash.com/photo-1600596542815-ffad4c1539a9?q=80&w=800",
+                    "https://images.unsplash.com/photo-1600607687939-ce8a6c25118c?q=80&w=800"
                 ],
                 condo: 0, 
                 status: "Reformada",
@@ -1274,7 +1304,10 @@
                                     <i class="ph-fill ph-heart"></i>
                                 </button>
                                 <div class="compare-checkbox">
-                                    <input type="checkbox" ${isCompared ? 'checked' : ''} onclick="event.stopPropagation(); engine.toggleCompare(${p.id})" id="compare-${p.id}">
+                                    <label>
+                                        <input type="checkbox" ${isCompared ? 'checked' : ''} onclick="event.stopPropagation(); engine.toggleCompare(${p.id})" id="compare-${p.id}">
+                                        <span>Comparar</span>
+                                    </label>
                                 </div>
                                 <img src="${p.images[0]}" alt="${p.title}" loading="lazy">
                             </div>
