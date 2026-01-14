@@ -626,10 +626,6 @@
                 <i class="ph-fill ph-squares-four"></i>
                 Dashboard
             </div>
-            <div class="nav-item" onclick="app.switchView('properties')">
-                <i class="ph-fill ph-buildings"></i>
-                Imóveis
-            </div>
             <div class="nav-item" onclick="app.switchView('settings')">
                 <i class="ph-fill ph-gear"></i>
                 Configurações
@@ -738,20 +734,30 @@
             
             <div class="table-container" style="max-width: 700px;">
                 <div class="modal-body">
+                    <div style="background: #DBEAFE; border-left: 4px solid #2563EB; padding: 20px; border-radius: 12px; margin-bottom: 30px;">
+                        <h3 style="color: #1E40AF; margin-bottom: 10px; font-size: 16px;">ℹ️ Informação Importante</h3>
+                        <p style="color: #1E40AF; font-size: 14px; line-height: 1.6;">
+                            <strong>Seu repositório está PÚBLICO!</strong><br>
+                            Você ainda precisa do token do GitHub para <strong>editar/adicionar/excluir</strong> imóveis.<br>
+                            O token é necessário apenas para <strong>escrever</strong> no GitHub, não para ler.
+                        </p>
+                    </div>
+                    
                     <div class="form-group">
                         <label>GitHub Username</label>
-                        <input type="text" id="github-username" placeholder="seu-usuario">
+                        <input type="text" id="github-username" placeholder="doctorvictorandrews-tech" value="doctorvictorandrews-tech">
                     </div>
                     
                     <div class="form-group">
                         <label>Nome do Repositório</label>
-                        <input type="text" id="github-repo" placeholder="nome-do-repo">
+                        <input type="text" id="github-repo" placeholder="corretor" value="corretor">
                     </div>
                     
                     <div class="form-group">
-                        <label>GitHub Token (Personal Access Token)</label>
+                        <label>GitHub Token (Personal Access Token) *</label>
                         <input type="password" id="github-token" placeholder="ghp_xxxxxxxxxxxx">
                         <small style="color: #64748B; margin-top: 8px; display: block;">
+                            <strong>Obrigatório para sincronizar!</strong><br>
                             <a href="https://github.com/settings/tokens" target="_blank" style="color: var(--accent);">
                                 Criar um novo token aqui
                             </a> com permissões de "repo"
@@ -913,6 +919,8 @@
                 
                 document.getElementById('dashboard-view').style.display = view === 'dashboard' ? 'block' : 'none';
                 document.getElementById('settings-view').style.display = view === 'settings' ? 'block' : 'none';
+                
+                // Nota: View 'properties' foi removida pois Dashboard já mostra todos os imóveis
             },
             
             // Property Management
