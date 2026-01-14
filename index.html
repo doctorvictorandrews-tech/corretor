@@ -1077,28 +1077,36 @@
         // Array que será preenchido automaticamente do GitHub
         let PROPERTIES = [];
         
-        // Função para carregar imóveis do GitHub
+        // Função para carregar imóveis do GitHub (compatível com repos privados)
         async function loadPropertiesFromGitHub() {
             try {
-                const url = `https://raw.githubusercontent.com/${GITHUB_CONFIG.username}/${GITHUB_CONFIG.repo}/${GITHUB_CONFIG.branch}/data/properties.json`;
+                // Tenta primeiro a API pública (funciona para repos públicos)
+                const urlRaw = `https://raw.githubusercontent.com/${GITHUB_CONFIG.username}/${GITHUB_CONFIG.repo}/${GITHUB_CONFIG.branch}/data/properties.json`;
                 
                 console.log('🔄 Carregando imóveis do GitHub...');
                 
-                const response = await fetch(url);
+                let response = await fetch(urlRaw);
+                
+                // Se falhar (repo privado), tenta via GitHub Pages
+                if (!response.ok && response.status === 404) {
+                    console.log('⚠️ Tentando rota alternativa...');
+                    const urlPages = `https://${GITHUB_CONFIG.username}.github.io/${GITHUB_CONFIG.repo}/data/properties.json`;
+                    response = await fetch(urlPages);
+                }
                 
                 if (response.ok) {
                     PROPERTIES = await response.json();
                     console.log(`✅ ${PROPERTIES.length} imóveis carregados com sucesso!`);
                     
                     // Recarregar a listagem se o engine já estiver inicializado
-                    if (typeof engine !== 'undefined' && engine.results) {
+                    if (typeof engine !== 'undefined' && engine.filter) {
                         engine.filter();
-                        engine.updateStats();
                     }
                     
                     return true;
                 } else if (response.status === 404) {
                     console.warn('⚠️ Arquivo properties.json não encontrado. Usando dados de exemplo.');
+                    console.log('💡 DICA: Para resolver, torne o repositório público ou ative o GitHub Pages');
                     // Manter alguns imóveis de exemplo para demonstração
                     PROPERTIES = getDemoProperties();
                     return false;
@@ -1108,6 +1116,7 @@
             } catch (error) {
                 console.error('❌ Erro ao carregar imóveis do GitHub:', error);
                 console.log('📝 Usando imóveis de demonstração...');
+                console.log('💡 SOLUÇÃO: Torne o repositório público em: https://github.com/' + GITHUB_CONFIG.username + '/' + GITHUB_CONFIG.repo + '/settings');
                 PROPERTIES = getDemoProperties();
                 return false;
             }
